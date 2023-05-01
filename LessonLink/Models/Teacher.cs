@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace LessonLink.Models
 {
-    public class UserProfile
+    public class Teacher
     {
         public int Id { get; set; }
 
@@ -29,11 +29,9 @@ namespace LessonLink.Models
         [MaxLength(255)]
         public string Email { get; set; }
 
-        public DateTime CreateDateTime { get; set; }
-
-        [DataType(DataType.Url)]
-        [MaxLength(255)]
-        public string ImageLocation { get; set; }
+        //[DataType(DataType.Url)]
+        //[MaxLength(255)]
+        //public string ImageLocation { get; set; }
 
         [Required]
         public int UserTypeId { get; set; }

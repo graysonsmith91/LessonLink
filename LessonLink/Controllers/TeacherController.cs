@@ -10,10 +10,10 @@ namespace LessonLink.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class UserProfileController : ControllerBase
+    public class TeacherController : ControllerBase
     {
-        private readonly IUserProfileRepository _userProfileRepository;
-        public UserProfileController(IUserProfileRepository userProfileRepository)
+        private readonly ITeacherRepository _userProfileRepository;
+        public TeacherController(ITeacherRepository userProfileRepository)
         {
             _userProfileRepository = userProfileRepository;
         }
@@ -58,7 +58,7 @@ namespace LessonLink.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(UserProfile userProfile)
+        public IActionResult Post(Teacher userProfile)
         {
             userProfile.DateCreated = DateTime.Now;
             _userProfileRepository.Add(userProfile);
@@ -66,7 +66,7 @@ namespace LessonLink.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, UserProfile userProfile)
+        public IActionResult Put(int id, Teacher userProfile)
         {
             if (id != userProfile.Id)
             {
@@ -118,7 +118,7 @@ namespace LessonLink.Controllers
         //        nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
         //}
 
-        private UserProfile GetCurrentUserProfile()
+        private Teacher GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
