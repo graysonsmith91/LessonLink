@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Streamish.Repositories;
+using LessonLink.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

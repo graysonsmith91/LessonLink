@@ -21,10 +21,6 @@ namespace LessonLink.Models
         public string LastName { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string DisplayName { get; set; }
-
-        [Required]
         [DataType(DataType.EmailAddress)]
         [MaxLength(255)]
         public string Email { get; set; }
