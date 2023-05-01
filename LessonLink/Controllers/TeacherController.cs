@@ -12,95 +12,83 @@ namespace LessonLink.Controllers
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        private readonly ITeacherRepository _userProfileRepository;
-        public TeacherController(ITeacherRepository userProfileRepository)
+        private readonly ITeacherRepository _teacherRepository;
+        public TeacherController(ITeacherRepository teacherRepository)
         {
-            _userProfileRepository = userProfileRepository;
+            _teacherRepository = teacherRepository;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_userProfileRepository.GetAll());
+            return Ok(_teacherRepository.GetAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var video = _userProfileRepository.GetById(id);
-            if (video == null)
+            var teacher = _teacherRepository.GetById(id);
+            if (teacher == null)
             {
                 return NotFound();
             }
-            return Ok(video);
+            return Ok(teacher);
         }
 
         [HttpGet("Firebase/{firebaseUserId}")]
         public IActionResult GetByFirebaseUserId(string firebaseUserId)
         {
-            var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
-            if (userProfile == null)
+            var teacher = _teacherRepository.GetByFirebaseUserId(firebaseUserId);
+            if (teacher == null)
             {
                 return NotFound();
             }
-            return Ok(userProfile);
-        }
-
-        [HttpGet("Videos/{id}")]
-        public IActionResult GetUserByIdWithVideos(int id)
-        {
-            var userProfile = _userProfileRepository.GetUserByIdWithVideos(id);
-            if (userProfile == null)
-            {
-                return NotFound();
-            }
-            return Ok(userProfile);
+            return Ok(teacher);
         }
 
         [HttpPost]
-        public IActionResult Post(Teacher userProfile)
+        public IActionResult Post(Teacher teacher)
         {
-            userProfile.DateCreated = DateTime.Now;
-            _userProfileRepository.Add(userProfile);
-            return CreatedAtAction("Get", new { id = userProfile.Id }, userProfile);
+            _teacherRepository.Add(teacher);
+            return CreatedAtAction("Get", new { id = teacher.Id }, teacher);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Teacher userProfile)
+        public IActionResult Put(int id, Teacher teacher)
         {
-            if (id != userProfile.Id)
+            if (id != teacher.Id)
             {
                 return BadRequest();
             }
 
-            _userProfileRepository.Update(userProfile);
+            _teacherRepository.Update(teacher);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _userProfileRepository.Delete(id);
+            _teacherRepository.Delete(id);
             return NoContent();
         }
 
         [HttpGet("Me")]
         public IActionResult Me()
         {
-            var userProfile = GetCurrentUserProfile();
-            if (userProfile == null)
+            var teacher = GetCurrentUser();
+            if (teacher == null)
             {
                 return NotFound();
             }
 
-            return Ok(userProfile);
+            return Ok(teacher);
         }
 
         [HttpGet("DoesUserExist/{firebaseUserId}")]
         public IActionResult DoesUserExist(string firebaseUserId)
         {
-            var userProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
-            if (userProfile == null)
+            var teacher = _teacherRepository.GetByFirebaseUserId(firebaseUserId);
+            if (teacher == null)
             {
                 return NotFound();
             }
@@ -118,10 +106,10 @@ namespace LessonLink.Controllers
         //        nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
         //}
 
-        private Teacher GetCurrentUserProfile()
+        private Teacher GetCurrentUser()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+            return _teacherRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }
