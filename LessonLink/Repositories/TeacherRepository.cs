@@ -59,7 +59,7 @@ namespace LessonLink.Repositories
                           FROM Teacher
                           WHERE Id = @id";
 
-                    DbUtils.AddParameter(cmd, "@Id", id);
+                    DbUtils.AddParameter(cmd, "@id", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {

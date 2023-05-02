@@ -59,6 +59,7 @@ namespace LessonLink
             });
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
+            Console.WriteLine(firebaseProjectId);
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
