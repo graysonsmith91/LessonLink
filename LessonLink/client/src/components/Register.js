@@ -24,6 +24,7 @@ export default function Register() {
                 lastName,
                 displayName,
                 email,
+                UserTypeId: 2
             };
             register(userProfile, password).then(() => navigate("/"));
         }

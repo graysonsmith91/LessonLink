@@ -33,7 +33,7 @@ const _saveUser = (userProfile) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(userProfile)
-        }).then(resp => resp.json()));
+        }).then(resp => resp));
 };
 
 export const getToken = () => firebase.auth().currentUser.getIdToken();
