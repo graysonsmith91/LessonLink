@@ -97,7 +97,8 @@ namespace LessonLink.Repositories
                        SELECT s.Id, s.FirstName, s.LastName, s.GuardianName, s.Email, s.InstrumentId, s.TeacherId
                        FROM Student s
                        LEFT JOIN Teacher t ON t.Id = s.TeacherId
-                       WHERE t.Id = @teacherId;";
+                       WHERE t.Id = @teacherId
+                       ORDER BY s.LastName;";
 
                     cmd.Parameters.AddWithValue("@teacherId", teacherId);
                     var reader = cmd.ExecuteReader();

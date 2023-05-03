@@ -6,6 +6,7 @@ import Hello from "./Home";
 import TeacherList from "./TeacherList";
 import TeacherEditForm from "./TeacherEditForm";
 import TeacherDeleteCheck from "./TeacherDeleteCheck";
+import StudentList from "./StudentList";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -22,6 +23,12 @@ export default function ApplicationViews({ isLoggedIn }) {
                         <Route index element={isLoggedIn ? <TeacherList /> : <Navigate to="/login" />} />
                         <Route path="edit/:teacherId" element={<TeacherEditForm />} />
                         <Route path="delete/:teacherId" element={<TeacherDeleteCheck />} />
+                    </Route>
+
+                    <Route path="students/:teacherId">
+                        <Route index element={isLoggedIn ? <StudentList /> : <Navigate to="/login" />} />
+                        {/* <Route path="edit/:teacherId" element={<TeacherEditForm />} />
+                        <Route path="delete/:teacherId" element={<TeacherDeleteCheck />} /> */}
                     </Route>
 
                     <Route path="login" element={<Login />} />

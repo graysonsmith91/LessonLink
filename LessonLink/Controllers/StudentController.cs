@@ -35,6 +35,13 @@ namespace LessonLink.Controllers
             return Ok(student);
         }
 
+        [HttpGet("myStudents/{id}")]
+        public IActionResult GetStudentsByTeacherId(int id)
+        {
+            return
+                Ok(_studentRepository.GetStudentsByTeacherId(id));
+        }
+
         [HttpPost]
         public IActionResult Post(Student student)
         {
