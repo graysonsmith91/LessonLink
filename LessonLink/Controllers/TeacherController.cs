@@ -98,8 +98,6 @@ namespace LessonLink.Controllers
         [HttpPost("Register")]
         public IActionResult Register(Teacher teacher)
         {
-            // All newly registered users start out as a "user" user type (i.e. they are not admins)
-            teacher.UserTypeId = 2;
             _teacherRepository.Add(teacher);
             return CreatedAtAction(
                 nameof(GetByFirebaseUserId), new { firebaseUserId = teacher.FirebaseUserId }, teacher);
