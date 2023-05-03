@@ -11,8 +11,7 @@ export default function TeacherEditForm() {
     const [teacher, setTeacher] = useState({
         id: 0,
         firstName: "",
-        lastName: "",
-        email: "",
+        lastName: ""
     });
 
     useEffect(() => {
@@ -53,15 +52,7 @@ export default function TeacherEditForm() {
                         onChange={(e) => handleChange(e)}
                     />
                 </FormGroup>
-                <FormGroup>
-                    <Label for='email'>Email</Label>
-                    <Input
-                        id="email"
-                        type="text"
-                        value={teacher.email}
-                        onChange={(e) => handleChange(e)}
-                    />
-                </FormGroup>
+
                 <FormGroup>
                     <Button color="success">Save</Button>
                 </FormGroup>

@@ -36,7 +36,7 @@ export default function TeacherDeleteCheck() {
                     <Button color="danger">Delete</Button>
                 </FormGroup>
                 <em>
-                    <Link to="/categories">Cancel</Link>
+                    <Link to="/teachers">Cancel</Link>
                 </em>
             </fieldset>
         </Form>
