@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Table } from "reactstrap";
-import { Link, useNavigate } from "react-router-dom";
 import { getAllTeachers } from "../modules/teacherManager";
+import Teacher from "./Teacher";
 
 export default function TeacherList() {
     const [teachers, setTeachers] = useState([]);
-    const navigate = useNavigate();
 
     const getTeachers = () => {
         getAllTeachers().then(teachers => setTeachers(teachers));
@@ -21,30 +20,22 @@ export default function TeacherList() {
                 <h1>
                     Teachers
                 </h1>
-                <div className="new-button">
-                    <button className="btn btn-outline-primary btn-lg" onClick={() => navigate(`/teachers/add`)}>Add New Teacher</button>
-                </div>
             </div>
 
             <Table hover>
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Administrator</th>
                     </tr>
 
                 </thead>
                 <tbody>
-                    {teachers.map((teacher) => {
-                        return (
-                            <tr key={teacher.id}>
-                                <td>{teacher.fullName}</td>
-                                <td className="text-end">
-                                    <Link to={`Edit/${teacher.id}`} className="edit-button btn btn-outline-dark btn-sm">Edit</Link>
-                                    <Link to={`Delete/${teacher.id}`} className="del-button btn btn-outline-danger btn-sm">Delete</Link>
-                                </td>
-                            </tr>
-                        );
-                    })}
+                    {teachers.map((teacher) => (
+                        <Teacher teacher={teacher} key={teacher.id} />
+                    ))}
                 </tbody>
             </Table>
         </>

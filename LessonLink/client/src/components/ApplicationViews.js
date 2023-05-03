@@ -4,6 +4,9 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Home";
 import TeacherList from "./TeacherList";
+import TeacherEditForm from "./TeacherEditForm";
+import TeacherDeleteCheck from "./TeacherDeleteCheck";
+
 
 export default function ApplicationViews({ isLoggedIn }) {
     return (
@@ -16,10 +19,9 @@ export default function ApplicationViews({ isLoggedIn }) {
                     />
 
                     <Route path="teachers">
-                        <Route index element={<TeacherList />} />
-                        {/* <Route path="add" element={<CategoryAddForm />} />
-                        <Route path="edit/:categoryId" element={<CategoryEditForm />} />
-                        <Route path="delete/:categoryId" element={<CategoryDeleteCheck />} /> */}
+                        <Route index element={isLoggedIn ? <TeacherList /> : <Navigate to="/login" />} />
+                        <Route path="edit/:teacherId" element={<TeacherEditForm />} />
+                        <Route path="delete/:teacherId" element={<TeacherDeleteCheck />} />
                     </Route>
 
                     <Route path="login" element={<Login />} />

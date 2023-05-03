@@ -18,7 +18,7 @@ const Header = ({ isLoggedIn, userProfile }) => {
     return (
         <div>
             <Navbar color="dark" dark expand="md">
-                <NavbarBrand tag={RRNavLink} to="/">Tabloid</NavbarBrand>
+                <NavbarBrand tag={RRNavLink} to="/">LessonLink</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
