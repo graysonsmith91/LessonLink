@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 namespace LessonLink.Repositories
 {
 
-    public class StudentRepository : BaseRepository
+    public class StudentRepository : BaseRepository, IStudentRepository
     {
         public StudentRepository(IConfiguration configuration) : base(configuration) { }
 
@@ -58,7 +58,7 @@ namespace LessonLink.Repositories
                 {
                     cmd.CommandText = @"
                           SELECT Id, FirstName, LastName, GuardianName, Email, InstrumentId, TeacherId
-                          FROM Student;
+                          FROM Student
                           WHERE Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -170,6 +170,7 @@ namespace LessonLink.Repositories
                     DbUtils.AddParameter(cmd, "@id", student.Id);
                     DbUtils.AddParameter(cmd, "@firstName", student.FirstName);
                     DbUtils.AddParameter(cmd, "@lastName", student.LastName);
+                    DbUtils.AddParameter(cmd, "@guardianName", student.GuardianName);
                     DbUtils.AddParameter(cmd, "@email", student.Email);
                     DbUtils.AddParameter(cmd, "@instrumentId", student.InstrumentId);
                     DbUtils.AddParameter(cmd, "@teacherId", student.TeacherId);
