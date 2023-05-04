@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { me } from '../modules/authManager';
 import { addStudent } from '../modules/studentManager';
+import { getAllInstruments } from '../modules/instrumentManager';
+import { getAllTeachers } from '../modules/teacherManager';
 
 export default function StudentAddForm() {
     const [user, setUser] = useState({});
     const navigate = useNavigate();
+    const teacherId = user.Id;
 
     const emptyStudent = {
         firstName: '',
@@ -18,22 +21,39 @@ export default function StudentAddForm() {
     };
 
     const [student, setStudent] = useState(emptyStudent);
-    const [instruments, setInstruments] = useState([])
-    const [dropdownText, setDropdownText] = useState("Category")
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [instruments, setInstruments] = useState([]);
+    const [teachers, setTeachers] = useState([]);
+    const [instrumentDropdownText, setInstrumentDropdownText] = useState("Instrument");
+    const [teacherDropdownText, setTeacherDropdownText] = useState("Teacher");
+    const [instrumentDropdownOpen, setInstrumentDropdownOpen] = useState(false);
+    const [teacherDropdownOpen, setTeacherDropdownOpen] = useState(false);
 
-    const toggle = () => setDropdownOpen((prevState) => !prevState);
+    const toggleInstrumentDropdown = () => setInstrumentDropdownOpen((prevState) => !prevState);
+    const toggleTeacherDropdown = () => setTeacherDropdownOpen((prevState) => !prevState);
+
+    const getInstruments = () => {
+        getAllInstruments().then(instruments => setInstruments(instruments));
+    }
+
+    const getTeachers = () => {
+        getAllTeachers().then(teachers => setTeachers(teachers));
+    }
 
     useEffect(() => {
         me().then(setUser)
     }, []);
 
-    // useEffect(() => {
-    //     getInstruments();
-    // }, []);
+    useEffect(() => {
+        getInstruments();
+        getTeachers();
+    }, []);
 
-    const handleDropdown = (evt) => {
-        setDropdownText(evt.target.name)
+    const handleInstrumentDropdown = (evt) => {
+        setInstrumentDropdownText(evt.target.name)
+    }
+
+    const handleTeacherDropdown = (evt) => {
+        setTeacherDropdownText(evt.target.name)
     }
 
     const handleInputChange = (evt) => {
@@ -48,7 +68,7 @@ export default function StudentAddForm() {
     const handleSave = (evt) => {
         evt.preventDefault();
         addStudent(student).then(() => {
-            navigate(`..`);
+            navigate(`../${user.id}`);
         });
     };
 
@@ -79,15 +99,15 @@ export default function StudentAddForm() {
                     onChange={handleInputChange} />
             </FormGroup>
 
-            {/* <FormGroup>
-                <Dropdown isOpen={dropdownOpen} toggle={toggle} >
-                    <DropdownToggle color="primary" caret>{dropdownText}</DropdownToggle>
+            <FormGroup>
+                <Dropdown isOpen={instrumentDropdownOpen} toggle={toggleInstrumentDropdown} >
+                    <DropdownToggle color="primary" caret>{instrumentDropdownText}</DropdownToggle>
                     <DropdownMenu>
                         {instruments.map((instrument) => {
                             return (
                                 <DropdownItem id="instrumentId" name={instrument.name} value={instrument.id} key={instrument.id}
                                     onClick={(e) => {
-                                        handleDropdown(e);
+                                        handleInstrumentDropdown(e);
                                         handleInputChange(e);
                                     }}>
                                     {instrument.name}
@@ -96,7 +116,26 @@ export default function StudentAddForm() {
                         })}
                     </DropdownMenu>
                 </Dropdown>
-            </FormGroup> */}
+            </FormGroup>
+
+            <FormGroup>
+                <Dropdown isOpen={teacherDropdownOpen} toggle={toggleTeacherDropdown} >
+                    <DropdownToggle color="primary" caret>{teacherDropdownText}</DropdownToggle>
+                    <DropdownMenu>
+                        {teachers.map((teacher) => {
+                            return (
+                                <DropdownItem id="teacherId" name={teacher.fullName} value={teacher.id} key={teacher.id}
+                                    onClick={(e) => {
+                                        handleTeacherDropdown(e);
+                                        handleInputChange(e);
+                                    }}>
+                                    {teacher.fullName}
+                                </DropdownItem>
+                            );
+                        })}
+                    </DropdownMenu>
+                </Dropdown>
+            </FormGroup>
 
             <button className="btn btn-outline-primary btn-md" onClick={handleSave}>Submit</button>
         </Form>
