@@ -95,16 +95,13 @@ namespace LessonLink.Controllers
             return Ok();
         }
 
-        //[HttpPost("Register")]
-        //public IActionResult Register(UserProfile userProfile)
-        //{
-        //    // All newly registered users start out as a "user" user type (i.e. they are not admins)
-        //    // userProfile.UserTypeId = UserType.USER_TYPE_ID;
-        //    userProfile.DateCreated = DateTime.Now;
-        //    _userProfileRepository.Add(userProfile);
-        //    return CreatedAtAction(
-        //        nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
-        //}
+        [HttpPost("Register")]
+        public IActionResult Register(Teacher teacher)
+        {
+            _teacherRepository.Add(teacher);
+            return CreatedAtAction(
+                nameof(GetByFirebaseUserId), new { firebaseUserId = teacher.FirebaseUserId }, teacher);
+        }
 
         private Teacher GetCurrentUser()
         {

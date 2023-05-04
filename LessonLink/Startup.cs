@@ -31,6 +31,7 @@ namespace LessonLink
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<ITeacherRepository, TeacherRepository>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -59,6 +60,7 @@ namespace LessonLink
             });
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
+            Console.WriteLine(firebaseProjectId);
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
