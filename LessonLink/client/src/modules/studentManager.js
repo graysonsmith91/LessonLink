@@ -26,6 +26,19 @@ export const getStudent = (id) => {
     })
 };
 
+export const addStudent = (student) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(student)
+        });
+    })
+};
+
 export const editStudent = (student) => {
     return getToken().then((token) => {
         return fetch(`${baseUrl}/${student.id}`, {

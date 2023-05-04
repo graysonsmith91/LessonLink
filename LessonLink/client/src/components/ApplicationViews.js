@@ -7,6 +7,7 @@ import TeacherList from "./TeacherList";
 import TeacherEditForm from "./TeacherEditForm";
 import TeacherDeleteCheck from "./TeacherDeleteCheck";
 import StudentList from "./StudentList";
+import StudentAddForm from "./StudentAddForm";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -21,14 +22,14 @@ export default function ApplicationViews({ isLoggedIn }) {
 
                     <Route path="teachers">
                         <Route index element={isLoggedIn ? <TeacherList /> : <Navigate to="/login" />} />
-                        <Route path="edit/:teacherId" element={<TeacherEditForm />} />
-                        <Route path="delete/:teacherId" element={<TeacherDeleteCheck />} />
+                        <Route path="edit/:teacherId" element={isLoggedIn ? <TeacherEditForm /> : <Navigate to="/login" />} />
+                        <Route path="delete/:teacherId" element={isLoggedIn ? <TeacherDeleteCheck /> : <Navigate to="/login" />} />
                     </Route>
 
-                    <Route path="students/:teacherId">
-                        <Route index element={isLoggedIn ? <StudentList /> : <Navigate to="/login" />} />
-                        {/* <Route path="edit/:teacherId" element={<TeacherEditForm />} />
-                        <Route path="delete/:teacherId" element={<TeacherDeleteCheck />} /> */}
+                    <Route path="students/">
+                        <Route path=":teacherId" element={isLoggedIn ? <StudentList /> : <Navigate to="/login" />} />
+                        <Route path="add" element={isLoggedIn ? <StudentAddForm /> : <Navigate to="/login" />} />
+                        {/* <Route path="delete/:teacherId" element={<StudentDeleteCheck />} /> */}
                     </Route>
 
                     <Route path="login" element={<Login />} />
