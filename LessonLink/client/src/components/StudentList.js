@@ -34,6 +34,7 @@ export default function StudentList() {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Family</th>
+                        <th></th>
                     </tr>
 
                 </thead>

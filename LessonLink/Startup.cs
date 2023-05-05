@@ -10,7 +10,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using LessonLink.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +31,7 @@ namespace LessonLink
         {
             services.AddTransient<ITeacherRepository, TeacherRepository>();
             services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddTransient<IInstrumentRepository, InstrumentRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

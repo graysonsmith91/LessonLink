@@ -27,5 +27,13 @@ namespace LessonLink.Models
 
         [Required]
         public int TeacherId { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
     }
 }

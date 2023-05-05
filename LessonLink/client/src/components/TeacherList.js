@@ -29,6 +29,7 @@ export default function TeacherList() {
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Administrator</th>
+                        <th></th>
                     </tr>
 
                 </thead>
