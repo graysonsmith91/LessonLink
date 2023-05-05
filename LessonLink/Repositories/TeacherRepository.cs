@@ -55,7 +55,7 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT Id, FirebaseUserId, FirstName, LastName, Email, UserTypeId 
+                          SELECT Id, FirebaseUserId, FirstName, LastName, Email, UserTypeId, DateCreated
                           FROM Teacher
                           WHERE Id = @id";
 
@@ -74,7 +74,8 @@ namespace LessonLink.Repositories
                                 FirstName = DbUtils.GetString(reader, "FirstName"),
                                 LastName = DbUtils.GetString(reader, "LastName"),
                                 Email = DbUtils.GetString(reader, "Email"),
-                                UserTypeId = DbUtils.GetInt(reader, "UserTypeId")
+                                UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
+                                DateCreated = DbUtils.GetDateTime(reader, "DateCreated")
                             };
                         }
                         return teacher;

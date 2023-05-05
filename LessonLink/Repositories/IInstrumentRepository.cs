@@ -9,6 +9,7 @@ namespace LessonLink.Repositories
         void Delete(int instrumentId);
         List<Instrument> GetAll();
         Instrument GetById(int id);
+        public List<Instrument> GetInstrumentsByTeacherId(int teacherId);
         void Update(Instrument instrument);
     }
 }

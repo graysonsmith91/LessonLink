@@ -10,6 +10,7 @@ import StudentList from "./StudentList";
 import StudentAddForm from "./StudentAddForm";
 import StudentEditForm from "./StudentEditForm";
 import StudentDeleteCheck from "./StudentDeleteCheck";
+import TeacherDetails from "./TeacherDetails";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -26,6 +27,10 @@ export default function ApplicationViews({ isLoggedIn }) {
                         <Route index element={isLoggedIn ? <TeacherList /> : <Navigate to="/login" />} />
                         <Route path="edit/:teacherId" element={isLoggedIn ? <TeacherEditForm /> : <Navigate to="/login" />} />
                         <Route path="delete/:teacherId" element={isLoggedIn ? <TeacherDeleteCheck /> : <Navigate to="/login" />} />
+                        <Route path="details/:teacherId" element={isLoggedIn ? <TeacherDetails /> : <Navigate to="/login" />} >
+                            {/* <Route path="details" element={<TeacherDetails />} /> */}
+                            {/* <Route path="comments" element={<PostComments />} /> */}
+                        </Route>
                     </Route>
 
                     <Route path="students/">
