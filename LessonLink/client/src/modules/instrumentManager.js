@@ -24,6 +24,17 @@ export const getInstrument = (id) => {
     })
 };
 
+export const getInstrumentsByTeacherId = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/teacherInstruments/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }).then((res) => res.json());
+    })
+};
+
 export const editInstrument = (instrument) => {
     return getToken().then((token) => {
         return fetch(`${baseUrl}/${instrument.id}`, {

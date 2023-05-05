@@ -34,6 +34,13 @@ namespace LessonLink.Controllers
             return Ok(instrument);
         }
 
+        [HttpGet("teacherInstruments/{id}")]
+        public IActionResult GetInstrumentsByTeacherId(int id)
+        {
+            return
+                Ok(_instrumentRepository.GetInstrumentsByTeacherId(id));
+        }
+
         [HttpPost]
         public IActionResult Post(Instrument instrument)
         {
