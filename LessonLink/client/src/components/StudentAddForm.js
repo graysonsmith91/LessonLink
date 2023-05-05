@@ -9,15 +9,14 @@ import { getAllTeachers } from '../modules/teacherManager';
 export default function StudentAddForm() {
     const [user, setUser] = useState({});
     const navigate = useNavigate();
-    const teacherId = user.Id;
 
     const emptyStudent = {
         firstName: '',
         lastName: '',
         guardianName: '',
         email: '',
-        instrumentId: 0,
-        teacherId: 0
+        instrumentId: 1,
+        teacherId: 1
     };
 
     const [student, setStudent] = useState(emptyStudent);
