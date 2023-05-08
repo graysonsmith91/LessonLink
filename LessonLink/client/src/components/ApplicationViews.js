@@ -11,6 +11,8 @@ import StudentAddForm from "./StudentAddForm";
 import StudentEditForm from "./StudentEditForm";
 import StudentDeleteCheck from "./StudentDeleteCheck";
 import TeacherDetails from "./TeacherDetails";
+import LessonList from "./LessonList";
+import LessonDetails from "./LessonDetails";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -27,17 +29,19 @@ export default function ApplicationViews({ isLoggedIn }) {
                         <Route index element={isLoggedIn ? <TeacherList /> : <Navigate to="/login" />} />
                         <Route path="edit/:teacherId" element={isLoggedIn ? <TeacherEditForm /> : <Navigate to="/login" />} />
                         <Route path="delete/:teacherId" element={isLoggedIn ? <TeacherDeleteCheck /> : <Navigate to="/login" />} />
-                        <Route path="details/:teacherId" element={isLoggedIn ? <TeacherDetails /> : <Navigate to="/login" />} >
-                            {/* <Route path="details" element={<TeacherDetails />} /> */}
-                            {/* <Route path="comments" element={<PostComments />} /> */}
-                        </Route>
+                        <Route path="details/:teacherId" element={isLoggedIn ? <TeacherDetails /> : <Navigate to="/login" />} />
                     </Route>
 
-                    <Route path="students/">
+                    <Route path="students">
                         <Route path=":teacherId" element={isLoggedIn ? <StudentList /> : <Navigate to="/login" />} />
                         <Route path="add" element={isLoggedIn ? <StudentAddForm /> : <Navigate to="/login" />} />
                         <Route path=":teacherId/edit/:studentId" element={isLoggedIn ? <StudentEditForm /> : <Navigate to="/login" />} />
                         <Route path=":teacherId/delete/:studentId" element={isLoggedIn ? <StudentDeleteCheck /> : <Navigate to="/login" />} />
+                    </Route>
+
+                    <Route path="lessons">
+                        <Route path=":teacherId" element={isLoggedIn ? <LessonList /> : <Navigate to="/login" />} />
+                        <Route path="details/:teacherId" element={isLoggedIn ? <LessonDetails /> : <Navigate to="/login" />} />
                     </Route>
 
                     <Route path="login" element={<Login />} />

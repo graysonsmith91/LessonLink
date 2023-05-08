@@ -32,6 +32,7 @@ namespace LessonLink
             services.AddTransient<ITeacherRepository, TeacherRepository>();
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IInstrumentRepository, InstrumentRepository>();
+            services.AddTransient<ILessonRepository, LessonRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
