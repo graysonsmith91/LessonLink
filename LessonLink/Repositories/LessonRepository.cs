@@ -90,9 +90,11 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT Id, StudentId, TeacherId, LessonLength, DateTime, Note, isComplete
-                       FROM Lesson
-                       WHERE TeacherId = @teacherId
+                       SELECT l.Id, l.StudentId, l.TeacherId AS LessonTeacherId, l.LessonLength, l.DateTime, l.Note, l.isComplete,
+                              s.FirstName, s.LastName
+                       FROM Lesson l
+                       LEFT JOIN Student s ON s.Id = l.StudentId
+                       WHERE l.TeacherId = @teacherId
                        ORDER BY DateTime;";
 
                     cmd.Parameters.AddWithValue("@teacherId", teacherId);
@@ -105,12 +107,18 @@ namespace LessonLink.Repositories
                         var lesson = new Lesson()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            StudentId = DbUtils.GetInt(reader, "StudentId"),
-                            TeacherId = DbUtils.GetInt(reader, "TeacherId"),
+                            TeacherId = DbUtils.GetInt(reader, "LessonTeacherId"),
                             LessonLength = DbUtils.GetInt(reader, "LessonLength"),
                             DateTime = DbUtils.GetDateTime(reader, "DateTime"),
                             Note = DbUtils.GetString(reader, "Note"),
-                            isComplete = DbUtils.GetBool(reader, "isComplete")
+                            isComplete = DbUtils.GetBool(reader, "isComplete"),
+                            StudentId = DbUtils.GetInt(reader, "StudentId"),
+                            Student = new Student()
+                            {
+                                Id = DbUtils.GetInt(reader, "StudentId"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName")
+                            }
                         };
                         lessons.Add(lesson);
                     }
