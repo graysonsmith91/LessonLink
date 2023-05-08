@@ -41,6 +41,10 @@ const Header = ({ isLoggedIn, userProfile }) => {
                                         style={{ cursor: "pointer" }} tag={RRNavLink} to={`/students/${userProfile?.id}`} >Students</NavLink>
                                 </NavItem>
                                 <NavItem>
+                                    <NavLink aria-current="page" className="nav-link"
+                                        style={{ cursor: "pointer" }} tag={RRNavLink} to={`/lessons/${userProfile?.id}`} >Lessons</NavLink>
+                                </NavItem>
+                                <NavItem>
                                     <a aria-current="page" className="nav-link"
                                         style={{ cursor: "pointer" }} onClick={logout} tag={RRNavLink} to="/login">Logout</a>
                                 </NavItem>
