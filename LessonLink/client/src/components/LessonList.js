@@ -68,6 +68,7 @@ export default function LessonList() {
                 </tbody>
             </Table>
 
+
             <h4>Complete lessons</h4>
             <Table hover>
                 <thead>

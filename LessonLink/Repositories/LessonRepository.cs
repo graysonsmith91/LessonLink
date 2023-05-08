@@ -53,9 +53,11 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT Id, StudentId, TeacherId, LessonLength, DateTime, Note, isComplete
-                          FROM Lesson
-                          WHERE Id = @id;";
+                          SELECT l.Id, l.StudentId, l.TeacherId AS LessonTeacherId, l.LessonLength, l.DateTime, l.Note, l.isComplete,
+                              s.FirstName, s.LastName, s.Email
+                          FROM Lesson l
+                          LEFT JOIN Student s ON s.Id = l.StudentId
+                          WHERE l.Id = @id;";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
@@ -68,12 +70,19 @@ namespace LessonLink.Repositories
                             lesson = new Lesson()
                             {
                                 Id = DbUtils.GetInt(reader, "Id"),
-                                StudentId = DbUtils.GetInt(reader, "StudentId"),
-                                TeacherId = DbUtils.GetInt(reader, "TeacherId"),
+                                TeacherId = DbUtils.GetInt(reader, "LessonTeacherId"),
                                 LessonLength = DbUtils.GetInt(reader, "LessonLength"),
                                 DateTime = DbUtils.GetDateTime(reader, "DateTime"),
                                 Note = DbUtils.GetString(reader, "Note"),
-                                isComplete = DbUtils.GetBool(reader, "isComplete")
+                                isComplete = DbUtils.GetBool(reader, "isComplete"),
+                                StudentId = DbUtils.GetInt(reader, "StudentId"),
+                                Student = new Student()
+                                {
+                                    Id = DbUtils.GetInt(reader, "StudentId"),
+                                    FirstName = DbUtils.GetString(reader, "FirstName"),
+                                    LastName = DbUtils.GetString(reader, "LastName"),
+                                    Email= DbUtils.GetString(reader, "Email"),
+                                }
                             };
                         }
                         return lesson;

@@ -12,6 +12,7 @@ import StudentEditForm from "./StudentEditForm";
 import StudentDeleteCheck from "./StudentDeleteCheck";
 import TeacherDetails from "./TeacherDetails";
 import LessonList from "./LessonList";
+import LessonDetails from "./LessonDetails";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -40,6 +41,7 @@ export default function ApplicationViews({ isLoggedIn }) {
 
                     <Route path="lessons">
                         <Route path=":teacherId" element={isLoggedIn ? <LessonList /> : <Navigate to="/login" />} />
+                        <Route path="details/:teacherId" element={isLoggedIn ? <LessonDetails /> : <Navigate to="/login" />} />
                     </Route>
 
                     <Route path="login" element={<Login />} />
