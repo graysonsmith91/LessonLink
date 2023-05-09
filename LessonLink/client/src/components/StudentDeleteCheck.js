@@ -33,7 +33,7 @@ export default function StudentDeleteCheck() {
     };
 
     return (
-        <Form onSubmit={(e) => deleteSubmit(e)}>
+        <Form onSubmit={(e) => deleteSubmit(e)} className='form'>
             <fieldset>
                 <h2>Delete Student?</h2>
                 <FormGroup>

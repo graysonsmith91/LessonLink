@@ -32,7 +32,7 @@ export default function TeacherEditForm() {
     };
 
     return (
-        <Form onSubmit={(e) => editSubmit(e)}>
+        <Form onSubmit={(e) => editSubmit(e)} className='form'>
             <fieldset>
                 <FormGroup>
                     <Label for='firstName'>First Name</Label>

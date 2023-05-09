@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using LessonLink.Models;
 using LessonLink.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LessonLink.Controllers
 {
-    //Authorize goes here
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class InstrumentController : ControllerBase
     {
         private readonly IInstrumentRepository _instrumentRepository;

@@ -72,7 +72,7 @@ export default function StudentAddForm() {
     };
 
     return (
-        <Form>
+        <Form className='form'>
             <FormGroup>
                 <Label for="firstName">First Name</Label>
                 <Input type="text" name="firstName" id="firstName"
@@ -137,6 +137,7 @@ export default function StudentAddForm() {
             </FormGroup>
 
             <button className="btn btn-outline-primary btn-md" onClick={handleSave}>Submit</button>
+            <button className="btn btn-outline-danger btn-md" onClick={() => { navigate(`/students/${user.id}`) }}>Cancel</button>
         </Form>
     );
 };

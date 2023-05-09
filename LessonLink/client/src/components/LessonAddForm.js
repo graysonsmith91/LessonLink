@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import { me } from '../modules/authManager';
 import { getStudentsByTeacherId } from '../modules/studentManager';
 import { addLesson } from '../modules/lessonManager';
@@ -56,7 +56,7 @@ export default function LessonAddForm() {
     };
 
     return (
-        <Form>
+        <Form className='form'>
             <FormGroup>
                 <Label for="dateTime">Date/Time:</Label>
                 <Input type="datetime-local" name="dateTime" id="dateTime" value={lesson.dateTime} onChange={handleInputChange} />
@@ -94,6 +94,7 @@ export default function LessonAddForm() {
             </FormGroup>
 
             <button className="btn btn-outline-primary btn-md" onClick={handleSave}>Submit</button>
+            <button className="btn btn-outline-danger btn-md" onClick={() => { navigate(`/lessons/${user.id}`) }}>Cancel</button>
         </Form>
     );
 };

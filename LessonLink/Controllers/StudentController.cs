@@ -7,9 +7,9 @@ using System.Security.Claims;
 
 namespace LessonLink.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StudentController : ControllerBase
     {
         private readonly IStudentRepository _studentRepository;

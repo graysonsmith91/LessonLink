@@ -79,7 +79,7 @@ export default function StudentEditForm() {
     };
 
     return (
-        <Form>
+        <Form className='form'>
             <fieldset>
                 <FormGroup>
                     <Label for='firstName'>First Name</Label>

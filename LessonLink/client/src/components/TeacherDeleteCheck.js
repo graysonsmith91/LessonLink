@@ -26,7 +26,7 @@ export default function TeacherDeleteCheck() {
     };
 
     return (
-        <Form onSubmit={(e) => deleteSubmit(e)}>
+        <Form onSubmit={(e) => deleteSubmit(e)} className='form'>
             <fieldset>
                 <h2>Delete Teacher?</h2>
                 <FormGroup>
