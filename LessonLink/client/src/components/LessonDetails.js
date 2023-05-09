@@ -9,12 +9,7 @@ export default function LessonDetails() {
     const [user, setUser] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [lesson, setLesson] = useState({
-        dateTime: "",
-        lessonLength: "",
-        note: "",
-        email: ""
-    });
+    const [lesson, setLesson] = useState(null);
 
     const { teacherId } = useParams();
     const navigate = useNavigate();
@@ -55,6 +50,20 @@ export default function LessonDetails() {
             .catch(() => alert("Something went wrong, try again"));
     }
 
+    const handleLessonComplete = () => {
+        lesson.isComplete = true;
+        editLesson(lesson)
+            .then(() => navigate(`/lessons/${user.id}`))
+            .catch(() => alert("Something went wrong, try again"));
+    }
+
+    const handleLessonIncomplete = () => {
+        lesson.isComplete = false;
+        editLesson(lesson)
+            .then(() => navigate(`/lessons/${user.id}`))
+            .catch(() => alert("Something went wrong, try again"));
+    }
+
     const handleInputChange = (evt) => {
         const value = evt.target.value;
         const key = evt.target.id;
@@ -83,10 +92,19 @@ export default function LessonDetails() {
                                 </div>
 
                                 <FormGroup>
-                                    <Button className="btn btn-sm" onClick={() => { navigate(`/lessons/${user.id}`) }}>Back To All Lessons</Button>
-                                    <Button className="btn btn-sm" onClick={handleEditOpenModal}>Edit Lesson</Button>
-                                    <Button className="btn btn-sm" onClick={handleDeleteOpenModal}>Delete Lesson</Button>
+                                    <Button className="btn btn-sm m-1" onClick={() => { navigate(`/lessons/${user.id}`) }}>Back To All Lessons</Button>
+                                    <Button className="btn btn-sm m-1" onClick={handleEditOpenModal}>Edit Lesson</Button>
+                                    <Button className="btn btn-sm m-1" onClick={handleDeleteOpenModal}>Delete Lesson</Button>
                                 </FormGroup>
+                                <FormGroup>
+                                    {lesson && new Date(lesson.dateTime) < new Date() && !lesson.isComplete && (
+                                        <Button className="btn btn-sm" color="primary" onClick={handleLessonComplete}>Complete Lesson</Button>
+                                    )}
+                                    {lesson && new Date(lesson.dateTime) < new Date() && lesson.isComplete && (
+                                        <Button className="btn btn-sm" color="danger" onClick={handleLessonIncomplete}>Incomplete Lesson</Button>
+                                    )}
+                                </FormGroup>
+
                             </ div>
                         </div>
                     </div>

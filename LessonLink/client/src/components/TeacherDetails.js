@@ -24,17 +24,6 @@ export default function TeacherDetails() {
         return null;
     }
 
-    // const handleTag = (evt) => {
-    //     const postTag = {
-    //         PostId: post.id,
-    //         TagId: evt.target.value
-    //     };
-
-    //     addPostTag(postTag)
-    //     getThisPost()
-
-    // };
-
     return (
         <>
             <div className="container mt-5">

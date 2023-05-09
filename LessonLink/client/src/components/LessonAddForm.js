@@ -20,30 +20,19 @@ export default function LessonAddForm() {
 
     const [lesson, setLesson] = useState(emptyLesson);
     const [students, setStudents] = useState([]);
-
     const [studentDropdownText, setStudentDropdownText] = useState("Student");
     const [studentDropdownOpen, setStudentDropdownOpen] = useState(false);
 
     const toggleStudentDropdown = () => setStudentDropdownOpen((prevState) => !prevState);
 
-    const getStudents = () => {
-        getStudentsByTeacherId(user.Id).then(students => {
-            console.log(students);
-            setStudents(students);
-        });
-    };
-
-    //USERID IS messed up above
-
-
     useEffect(() => {
-        me().then(setUser);
+        me().then((user) => {
+            setUser(user);
+            getStudentsByTeacherId(user.id).then((students) => {
+                setStudents(students);
+            });
+        });
     }, []);
-
-    // useEffect(() => {
-    //     getStudents();
-    // }, [user]);
-
 
     const handleStudentDropdown = (evt) => {
         setStudentDropdownText(evt.target.name)
@@ -89,7 +78,6 @@ export default function LessonAddForm() {
                 <Dropdown isOpen={studentDropdownOpen} toggle={toggleStudentDropdown} >
                     <DropdownToggle color="primary" caret>{studentDropdownText}</DropdownToggle>
                     <DropdownMenu>
-                        {console.log(students, typeof students)}
                         {students.map((student) => {
                             return (
                                 <DropdownItem id="studentId" name={student.fullName} value={student.id} key={student.id}
