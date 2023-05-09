@@ -8,10 +8,6 @@ export default function Lesson({ lesson }) {
             <td>{(new Date(lesson?.dateTime)).toLocaleDateString('en-US', { timeZone: 'America/Chicago' })}</td>
             <td>{lesson.lessonLength}</td>
             <td></td>
-            {/* <td className="text-end">
-                <Link to={`Edit/${lesson.id}`} className="edit-button btn btn-outline-dark btn-sm">Edit</Link>
-                <Link to={`Delete/${lesson.id}`} className="del-button btn btn-outline-danger btn-sm">Delete</Link>
-            </td> */}
         </tr>
     );
 }
