@@ -179,7 +179,18 @@ namespace LessonLink.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM Teacher WHERE Id = @id";
+                    cmd.CommandText = @"
+                        DELETE FROM Lesson 
+                        WHERE TeacherId = @id
+
+                        DELETE FROM TeacherInstrument
+                        WHERE TeacherId = @id
+
+                        DELETE FROM Student
+                        WHERE TeacherId = @id
+                        
+                        DELETE FROM Teacher
+                        WHERE Id = @id";
                     DbUtils.AddParameter(cmd, "@id", id);
                     cmd.ExecuteNonQuery();
                 }

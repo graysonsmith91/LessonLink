@@ -29,7 +29,6 @@ namespace LessonLink.Models
 
         [Required]
         public int UserTypeId { get; set; }
-        //public UserType UserType { get; set; }
 
         public DateTime DateCreated { get; set; }
 
