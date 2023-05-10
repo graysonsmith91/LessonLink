@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using LessonLink.Models;
 using LessonLink.Utils;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
 
 namespace LessonLink.Repositories
 {
@@ -21,7 +22,7 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            SELECT Id, FirebaseUserId, FirstName, LastName, Email, UserTypeId 
+                            SELECT Id, FirebaseUserId, FirstName, LastName, Email, UserTypeId, Phone 
                             FROM Teacher;";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -37,7 +38,8 @@ namespace LessonLink.Repositories
                                 FirstName = DbUtils.GetString(reader, "FirstName"),
                                 LastName = DbUtils.GetString(reader, "LastName"),
                                 Email = DbUtils.GetString(reader, "Email"),
-                                UserTypeId = DbUtils.GetInt(reader, "UserTypeId")
+                                UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
+                                Phone= DbUtils.GetString(reader, "Phone")
                             });
                         }
 
@@ -128,15 +130,16 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Teacher (FirebaseUserId, FirstName, LastName, Email, UserTypeId)
+                        INSERT INTO Teacher (FirebaseUserId, FirstName, LastName, Email, UserTypeId, DateCreated)
                         OUTPUT INSERTED.ID
-                        VALUES (@FirebaseUserId, @FirstName, @LastName, @Email, @UserTypeId)";
+                        VALUES (@FirebaseUserId, @FirstName, @LastName, @Email, @UserTypeId, @DateCreated)";
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", teacher.FirebaseUserId);
                     DbUtils.AddParameter(cmd, "@FirstName", teacher.FirstName);
                     DbUtils.AddParameter(cmd, "@LastName", teacher.LastName);
                     DbUtils.AddParameter(cmd, "@Email", teacher.Email);
                     DbUtils.AddParameter(cmd, "@UserTypeId", teacher.UserTypeId);
+                    DbUtils.AddParameter(cmd, "@DateCreated", DateTime.Now);
 
                     teacher.Id = (int)cmd.ExecuteScalar();
                 }

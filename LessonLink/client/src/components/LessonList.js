@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Table } from "reactstrap";
+
+import { Row, Col, Table } from 'reactstrap';
 import { useNavigate, useParams } from "react-router-dom";
 import { getLessonsByTeacherId } from "../modules/lessonManager";
 import Lesson from "./Lesson";
@@ -19,75 +20,80 @@ export default function LessonList() {
 
     return (
         <>
-            <div className="container-top">
-                <h1>
-                    My Lessons
-                </h1>
-                <div className="new-button">
-                    <button className="btn btn-outline-primary btn-md" onClick={() => navigate(`/lessons/add`)}>Add New Lesson</button>
+            <div className="lesson-container">
+                <div>
+                    <h1>
+                        My Lessons
+                    </h1>
+                    <div className="new-button">
+                        <button className="btn btn-outline-primary btn-md" onClick={() => navigate(`/lessons/add`)}>Add New Lesson</button>
+                    </div>
                 </div>
+
+                <div className="lesson-section">
+                    <h4>Upcoming lessons</h4>
+                    <Table hover>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Date</th>
+                                <th>Length (Minutes)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {lessons
+                                .filter((lesson) => new Date(lesson.dateTime) > new Date())
+                                .map((lesson) => (
+                                    <Lesson lesson={lesson} key={lesson.id} />
+                                ))}
+                        </tbody>
+                    </Table>
+                </div>
+
+                <Row >
+                    <Col md="6" className="lesson-section incomplete-lessons">
+                        <h4>Incomplete lessons</h4>
+                        <Table hover>
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Date</th>
+                                    <th>Length (Minutes)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {lessons
+                                    .filter((lesson) => new Date(lesson.dateTime) < new Date() && lesson.isComplete === false)
+                                    .map((lesson) => (
+                                        <Lesson lesson={lesson} key={lesson.id} />
+                                    ))}
+                            </tbody>
+                        </Table>
+                    </Col>
+                    <Col md="6" className="lesson-section complete-lessons">
+                        <h4>Complete lessons</h4>
+                        <Table hover>
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Date</th>
+                                    <th>Length (Minutes)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {lessons
+                                    .filter((lesson) => new Date(lesson.dateTime) < new Date() && lesson.isComplete === true)
+                                    .map((lesson) => (
+                                        <Lesson lesson={lesson} key={lesson.id} />
+                                    ))}
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
             </div>
-            <h4>Upcoming lessons</h4>
-
-            <Table hover>
-                <thead>
-                    <tr>
-                        <th>Student</th>
-                        <th>Date</th>
-                        <th>Length (Minutes)</th>
-                        <th></th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    {lessons
-                        .filter((lesson) => new Date(lesson.dateTime) > new Date())
-                        .map((lesson) => (
-                            <Lesson lesson={lesson} key={lesson.id} />
-                        ))}
-                </tbody>
-            </Table>
-
-            <h4>Incomplete lessons</h4>
-            <Table hover>
-                <thead>
-                    <tr>
-                        <th>Student</th>
-                        <th>Date</th>
-                        <th>Length (Minutes)</th>
-                        <th></th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    {lessons
-                        .filter((lesson) => new Date(lesson.dateTime) < new Date() && lesson.isComplete === false)
-                        .map((lesson) => (
-                            <Lesson lesson={lesson} key={lesson.id} />
-                        ))}
-                </tbody>
-            </Table>
-
-
-            <h4>Complete lessons</h4>
-            <Table hover>
-                <thead>
-                    <tr>
-                        <th>Student</th>
-                        <th>Date</th>
-                        <th>Length (Minutes)</th>
-                        <th></th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    {lessons
-                        .filter((lesson) => new Date(lesson.dateTime) < new Date() && lesson.isComplete === true)
-                        .map((lesson) => (
-                            <Lesson lesson={lesson} key={lesson.id} />
-                        ))}
-                </tbody>
-            </Table>
         </>
     );
 }

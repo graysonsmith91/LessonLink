@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { me } from '../modules/authManager';
 import { addStudent } from '../modules/studentManager';
@@ -72,7 +72,7 @@ export default function StudentAddForm() {
     };
 
     return (
-        <Form>
+        <Form className='form'>
             <FormGroup>
                 <Label for="firstName">First Name</Label>
                 <Input type="text" name="firstName" id="firstName"
@@ -137,6 +137,9 @@ export default function StudentAddForm() {
             </FormGroup>
 
             <button className="btn btn-outline-primary btn-md" onClick={handleSave}>Submit</button>
+            <Link to={`/students/${user.id}`} className="btn btn-outline-danger btn-md">
+                Cancel
+            </Link>
         </Form>
     );
 };

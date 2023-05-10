@@ -7,9 +7,9 @@ using System.Security.Claims;
 
 namespace LessonLink.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TeacherController : ControllerBase
     {
         private readonly ITeacherRepository _teacherRepository;
@@ -98,6 +98,7 @@ namespace LessonLink.Controllers
         [HttpPost("Register")]
         public IActionResult Register(Teacher teacher)
         {
+            teacher.DateCreated = DateTime.Now;
             _teacherRepository.Add(teacher);
             return CreatedAtAction(
                 nameof(GetByFirebaseUserId), new { firebaseUserId = teacher.FirebaseUserId }, teacher);

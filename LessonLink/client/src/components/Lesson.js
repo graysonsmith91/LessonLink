@@ -5,7 +5,7 @@ export default function Lesson({ lesson }) {
     return (
         <tr key={lesson.id} style={{ cursor: 'pointer' }} onClick={() => navigate(`/lessons/details/${lesson.id}`)}>
             <td>{lesson.student.lastName}, {lesson.student.firstName}</td>
-            <td>{(new Date(lesson?.dateTime)).toLocaleDateString('en-US', { timeZone: 'America/Chicago' })}</td>
+            <td>{(new Date(lesson?.dateTime)).toLocaleString('en-US', { timeZone: 'America/Chicago' })}</td>
             <td>{lesson.lessonLength}</td>
             <td></td>
         </tr>
