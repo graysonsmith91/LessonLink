@@ -25,9 +25,7 @@ namespace LessonLink.Models
         [MaxLength(255)]
         public string Email { get; set; }
 
-        //[DataType(DataType.Url)]
-        //[MaxLength(255)]
-        //public string ImageLocation { get; set; }
+        public string Phone { get; set; }
 
         [Required]
         public int UserTypeId { get; set; }

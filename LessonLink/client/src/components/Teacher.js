@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { me } from "../modules/authManager";
 
 export default function Teacher({ teacher, userProfile }) {
     const navigate = useNavigate();

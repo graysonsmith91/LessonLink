@@ -24,12 +24,16 @@ export default function Home({ userProfile }) {
     }, [userProfile]);
 
     useEffect(() => {
-        const filtered = lessons.filter((lesson) => {
+        const filtered = lessons.length > 0 ? lessons.filter((lesson) => {
+            if (!lesson.dateTime) {
+                return false;
+            }
             const lessonDate = new Date(lesson.dateTime);
             return lessonDate <= nextWeek && lessonDate >= todayCheck;
-        });
+        }) : [];
         setFilteredLessons(filtered);
     }, [lessons]);
+
 
     return (
         <>

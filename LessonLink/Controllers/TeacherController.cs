@@ -98,6 +98,7 @@ namespace LessonLink.Controllers
         [HttpPost("Register")]
         public IActionResult Register(Teacher teacher)
         {
+            teacher.DateCreated = DateTime.Now;
             _teacherRepository.Add(teacher);
             return CreatedAtAction(
                 nameof(GetByFirebaseUserId), new { firebaseUserId = teacher.FirebaseUserId }, teacher);
