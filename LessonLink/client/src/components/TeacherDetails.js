@@ -8,6 +8,7 @@ import TeacherInstrumentManager from "./TeacherInstrumentManager";
 export default function TeacherDetails() {
     const [teacher, setTeacher] = useState();
     const [instruments, setInstruments] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { teacherId } = useParams();
     const navigate = useNavigate();
 
@@ -22,6 +23,16 @@ export default function TeacherDetails() {
 
     if (!teacher) {
         return null;
+    }
+
+    const handleClick = () => {
+        return (
+            // navigate(`/teachers/details/${teacherId}/instruments`)
+            TeacherInstrumentManager()
+            //needs modal to be set to open above
+            //need modal state
+            //copy lesson details
+        )
     }
 
     return (
@@ -53,7 +64,7 @@ export default function TeacherDetails() {
                                 }
 
                                 <Button className="btn btn-sm m-1" onClick={() => { navigate(`/teachers`) }}>Back To All Teachers</Button>
-                                {/* <Button className="btn btn-sm m-1" onClick={handleClick}>Manage Instruments</Button> */}
+                                <Button className="btn btn-sm m-1" onClick={handleClick}>Manage Instruments</Button>
                             </ div>
                         </div>
                     </div>

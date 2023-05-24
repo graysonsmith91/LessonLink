@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using LessonLink.Models;
+using LessonLink.Utils;
 
 namespace LessonLink.Repositories
 {
@@ -152,6 +153,26 @@ namespace LessonLink.Repositories
                     cmd.Parameters.AddWithValue("@id", instrumentId);
 
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddTeacherInstrument(TeacherInstrument teacherInstrument)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO TeacherInstrument (InstrumentId, TeacherId)
+                        OUTPUT INSERTED.ID
+                        VALUES (@instrumentId, @teacherId)";
+
+                    DbUtils.AddParameter(cmd, "@instrumentId", teacherInstrument.InstrumentId);
+                    DbUtils.AddParameter(cmd, "@teacherId", teacherInstrument.TeacherId);
+
+                    teacherInstrument.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
