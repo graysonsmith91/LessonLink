@@ -25,15 +25,13 @@ export default function TeacherDetails() {
         return null;
     }
 
-    const handleClick = () => {
-        return (
-            // navigate(`/teachers/details/${teacherId}/instruments`)
-            TeacherInstrumentManager()
-            //needs modal to be set to open above
-            //need modal state
-            //copy lesson details
-        )
+    const handleManageInstrumentsClick = () => {
+        setIsModalOpen(true);
     }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <>
@@ -64,7 +62,16 @@ export default function TeacherDetails() {
                                 }
 
                                 <Button className="btn btn-sm m-1" onClick={() => { navigate(`/teachers`) }}>Back To All Teachers</Button>
-                                <Button className="btn btn-sm m-1" onClick={handleClick}>Manage Instruments</Button>
+                                <Button className="btn btn-sm m-1" onClick={handleManageInstrumentsClick}>Manage Instruments</Button>
+
+                                {isModalOpen && (
+                                    <TeacherInstrumentManager
+                                        isModalOpen={isModalOpen}
+                                        teacherId={teacherId}
+                                        instruments={instruments}
+                                        onClose={handleCloseModal}
+                                    />
+                                )}
                             </ div>
                         </div>
                     </div>
