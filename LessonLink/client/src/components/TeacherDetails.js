@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { me } from "../modules/authManager";
+import { useNavigate, useParams } from "react-router-dom";
 import { getTeacher } from "../modules/teacherManager";
 import { getInstrumentsByTeacherId } from "../modules/instrumentManager";
+import { Button } from "reactstrap";
+import TeacherInstrumentManager from "./TeacherInstrumentManager";
 
 export default function TeacherDetails() {
     const [teacher, setTeacher] = useState();
     const [instruments, setInstruments] = useState([]);
-    const [user, setUser] = useState({});
     const { teacherId } = useParams();
+    const navigate = useNavigate();
 
     const getThisTeacher = () => {
         getTeacher(teacherId).then(teacher => setTeacher(teacher))
@@ -16,7 +17,6 @@ export default function TeacherDetails() {
 
     useEffect(() => {
         getThisTeacher();
-        me().then(setUser);
         getInstrumentsByTeacherId(teacherId).then(instruments => setInstruments(instruments));
     }, []);
 
@@ -52,9 +52,8 @@ export default function TeacherDetails() {
                                         ""
                                 }
 
-                                <em>
-                                    <Link to="/teachers">Back to Teachers</Link>
-                                </em>
+                                <Button className="btn btn-sm m-1" onClick={() => { navigate(`/teachers`) }}>Back To All Teachers</Button>
+                                {/* <Button className="btn btn-sm m-1" onClick={handleClick}>Manage Instruments</Button> */}
                             </ div>
                         </div>
                     </div>

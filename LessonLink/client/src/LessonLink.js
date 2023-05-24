@@ -6,7 +6,7 @@ import ApplicationViews from "./components/ApplicationViews";
 import { onLoginStatusChange, me } from "./modules/authManager";
 import "firebase/auth";
 
-function App() {
+function LessonLink() {
   const [isLoggedIn, setIsLoggedIn] = useState(null)
   const [userProfile, setUserProfile] = useState(null);
 
@@ -34,4 +34,4 @@ function App() {
   );
 }
 
-export default App;
+export default LessonLink;

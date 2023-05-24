@@ -2,12 +2,10 @@ import { Button, Form, FormGroup, Label } from 'reactstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { deleteStudent, getStudent } from '../modules/studentManager';
-import { me } from '../modules/authManager';
 
-export default function StudentDeleteCheck() {
+export default function StudentDeleteCheck({ userProfile }) {
     const navigate = useNavigate();
     const { studentId } = useParams();
-    const [user, setUser] = useState(null);
     const [student, setStudent] = useState({
         id: 0,
         firstName: "",
@@ -21,14 +19,10 @@ export default function StudentDeleteCheck() {
         getStudent(studentId).then(student => setStudent(student));
     }, []);
 
-    useEffect(() => {
-        me().then(setUser)
-    }, []);
-
     const deleteSubmit = (e) => {
         e.preventDefault();
         deleteStudent(studentId)
-            .then(() => navigate(`/students/${user.id}`))
+            .then(() => navigate(`/students/${userProfile.id}`))
             .catch(() => alert("Something went wrong, try again"));
     };
 
@@ -43,7 +37,7 @@ export default function StudentDeleteCheck() {
                     <Button color="danger">Delete</Button>
                 </FormGroup>
                 <FormGroup>
-                    <Button className="btn btn-md" onClick={() => { navigate(`/students/${user.id}`) }}>Cancel</Button>
+                    <Button className="btn btn-md" onClick={() => { navigate(`/students/${userProfile.id}`) }}>Cancel</Button>
                 </FormGroup>
             </fieldset>
         </Form>

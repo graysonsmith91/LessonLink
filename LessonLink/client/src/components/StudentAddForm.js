@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { me } from '../modules/authManager';
 import { addStudent } from '../modules/studentManager';
 import { getAllInstruments } from '../modules/instrumentManager';
 import { getAllTeachers } from '../modules/teacherManager';
 
-export default function StudentAddForm() {
-    const [user, setUser] = useState({});
-    const navigate = useNavigate();
-
+export default function StudentAddForm({ userProfile }) {
     const emptyStudent = {
         firstName: '',
         lastName: '',
@@ -18,7 +14,6 @@ export default function StudentAddForm() {
         instrumentId: 1,
         teacherId: 1
     };
-
     const [student, setStudent] = useState(emptyStudent);
     const [instruments, setInstruments] = useState([]);
     const [teachers, setTeachers] = useState([]);
@@ -27,8 +22,10 @@ export default function StudentAddForm() {
     const [instrumentDropdownOpen, setInstrumentDropdownOpen] = useState(false);
     const [teacherDropdownOpen, setTeacherDropdownOpen] = useState(false);
 
+    const navigate = useNavigate();
     const toggleInstrumentDropdown = () => setInstrumentDropdownOpen((prevState) => !prevState);
     const toggleTeacherDropdown = () => setTeacherDropdownOpen((prevState) => !prevState);
+
 
     const getInstruments = () => {
         getAllInstruments().then(instruments => setInstruments(instruments));
@@ -37,10 +34,6 @@ export default function StudentAddForm() {
     const getTeachers = () => {
         getAllTeachers().then(teachers => setTeachers(teachers));
     }
-
-    useEffect(() => {
-        me().then(setUser)
-    }, []);
 
     useEffect(() => {
         getInstruments();
@@ -63,11 +56,10 @@ export default function StudentAddForm() {
         setStudent(studentCopy);
     };
 
-
     const handleSave = (evt) => {
         evt.preventDefault();
         addStudent(student).then(() => {
-            navigate(`../${user.id}`);
+            navigate(`../${userProfile.id}`);
         });
     };
 
@@ -137,7 +129,7 @@ export default function StudentAddForm() {
             </FormGroup>
 
             <button className="btn btn-outline-primary btn-md" onClick={handleSave}>Submit</button>
-            <Link to={`/students/${user.id}`} className="btn btn-outline-danger btn-md">
+            <Link to={`/students/${userProfile.id}`} className="btn btn-outline-danger btn-md">
                 Cancel
             </Link>
         </Form>

@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { me } from "../modules/authManager";
 import { deleteLesson, getLesson } from "../modules/lessonManager";
 import { Button, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter, Label, Input } from "reactstrap";
 import { editLesson } from "../modules/lessonManager";
 
-export default function LessonDetails() {
-    const [user, setUser] = useState({});
+export default function LessonDetails({ userProfile }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [lesson, setLesson] = useState(null);
@@ -20,7 +18,6 @@ export default function LessonDetails() {
 
     useEffect(() => {
         getThisLesson();
-        me().then(setUser);
     }, []);
 
     const handleEditOpenModal = () => {
@@ -46,21 +43,21 @@ export default function LessonDetails() {
 
     const handleDeleteConfirm = () => {
         deleteLesson(lesson.id)
-            .then(() => navigate(`/lessons/${user.id}`))
+            .then(() => navigate(`/lessons/${userProfile.id}`))
             .catch(() => alert("Something went wrong, try again"));
     }
 
     const handleLessonComplete = () => {
         lesson.isComplete = true;
         editLesson(lesson)
-            .then(() => navigate(`/lessons/${user.id}`))
+            .then(() => navigate(`/lessons/${userProfile.id}`))
             .catch(() => alert("Something went wrong, try again"));
     }
 
     const handleLessonIncomplete = () => {
         lesson.isComplete = false;
         editLesson(lesson)
-            .then(() => navigate(`/lessons/${user.id}`))
+            .then(() => navigate(`/lessons/${userProfile.id}`))
             .catch(() => alert("Something went wrong, try again"));
     }
 
@@ -92,7 +89,7 @@ export default function LessonDetails() {
                                 </div>
 
                                 <FormGroup>
-                                    <Button className="btn btn-sm m-1" onClick={() => { navigate(`/lessons/${user.id}`) }}>Back To All Lessons</Button>
+                                    <Button className="btn btn-sm m-1" onClick={() => { navigate(`/lessons/${userProfile.id}`) }}>Back To All Lessons</Button>
                                     <Button className="btn btn-sm m-1" onClick={handleEditOpenModal}>Edit Lesson</Button>
                                     <Button className="btn btn-sm m-1" onClick={handleDeleteOpenModal}>Delete Lesson</Button>
                                 </FormGroup>
