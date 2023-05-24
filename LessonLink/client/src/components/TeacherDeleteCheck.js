@@ -4,15 +4,16 @@ import { useEffect, useState } from 'react';
 import { deleteTeacher, getTeacher } from '../modules/teacherManager';
 
 export default function TeacherDeleteCheck() {
-    const navigate = useNavigate();
-    const { teacherId } = useParams();
-
     const [teacher, setTeacher] = useState({
         id: 0,
         firstName: "",
         lastName: "",
         email: "",
     });
+
+    const navigate = useNavigate();
+    const { teacherId } = useParams();
+
 
     useEffect(() => {
         getTeacher(teacherId).then(teacher => setTeacher(teacher));
@@ -24,6 +25,7 @@ export default function TeacherDeleteCheck() {
             .then(() => navigate("/teachers"))
             .catch(() => alert("Something went wrong, try again"));
     };
+
 
     return (
         <Form onSubmit={(e) => deleteSubmit(e)} className='form'>

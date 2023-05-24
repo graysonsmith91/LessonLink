@@ -1,14 +1,12 @@
 import { Button, Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { editStudent, getStudent } from '../modules/studentManager';
 import { getAllInstruments } from '../modules/instrumentManager';
 import { getAllTeachers } from '../modules/teacherManager';
-import { me } from '../modules/authManager';
 
 
-export default function StudentEditForm() {
-    const [user, setUser] = useState(null);
+export default function StudentEditForm({ userProfile }) {
     const [instruments, setInstruments] = useState([]);
     const [teachers, setTeachers] = useState([]);
     const [instrumentDropdownText, setInstrumentDropdownText] = useState("Instrument");
@@ -24,10 +22,8 @@ export default function StudentEditForm() {
         teacherId: 0
     });
 
-    const navigate = useNavigate();
     const { studentId } = useParams();
-
-
+    const navigate = useNavigate();
     const toggleInstrumentDropdown = () => setInstrumentDropdownOpen((prevState) => !prevState);
     const toggleTeacherDropdown = () => setTeacherDropdownOpen((prevState) => !prevState);
 
@@ -43,10 +39,6 @@ export default function StudentEditForm() {
 
     useEffect(() => {
         getStudent(studentId).then(student => setStudent(student));
-    }, []);
-
-    useEffect(() => {
-        me().then(setUser)
     }, []);
 
     useEffect(() => {
@@ -74,7 +66,7 @@ export default function StudentEditForm() {
     const handleSave = (e) => {
         e.preventDefault();
         editStudent(student)
-            .then(() => navigate(`/students/${user.id}`))
+            .then(() => navigate(`/students/${userProfile.id}`))
             .catch(() => alert("Something went wrong, try again"));
     };
 
@@ -164,7 +156,7 @@ export default function StudentEditForm() {
                     <Button color="success" onClick={handleSave}>Save</Button>
                 </FormGroup>
                 <FormGroup>
-                    <Button className="btn btn-md" onClick={() => { navigate(`/students/${user.id}`) }}>Cancel</Button>
+                    <Button className="btn btn-md" onClick={() => { navigate(`/students/${userProfile.id}`) }}>Cancel</Button>
                 </FormGroup>
             </fieldset>
         </Form>

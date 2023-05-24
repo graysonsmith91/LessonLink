@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import { me } from '../modules/authManager';
 import { getStudentsByTeacherId } from '../modules/studentManager';
 import { addLesson } from '../modules/lessonManager';
 
-export default function LessonAddForm() {
-    const [user, setUser] = useState({});
-    const navigate = useNavigate();
-
+export default function LessonAddForm({ userProfile }) {
     const emptyLesson = {
         studentId: 0,
         teacherId: 0,
@@ -17,20 +14,17 @@ export default function LessonAddForm() {
         note: "",
         isComplete: false
     };
-
     const [lesson, setLesson] = useState(emptyLesson);
     const [students, setStudents] = useState([]);
     const [studentDropdownText, setStudentDropdownText] = useState("Student");
     const [studentDropdownOpen, setStudentDropdownOpen] = useState(false);
 
+    const navigate = useNavigate();
     const toggleStudentDropdown = () => setStudentDropdownOpen((prevState) => !prevState);
 
     useEffect(() => {
-        me().then((user) => {
-            setUser(user);
-            getStudentsByTeacherId(user.id).then((students) => {
-                setStudents(students);
-            });
+        getStudentsByTeacherId(userProfile.id).then((students) => {
+            setStudents(students);
         });
     }, []);
 
@@ -48,10 +42,10 @@ export default function LessonAddForm() {
 
 
     const handleSave = (evt) => {
-        lesson.teacherId = user.id
+        lesson.teacherId = userProfile.id
         evt.preventDefault();
         addLesson(lesson).then(() => {
-            navigate(`../${user.id}`);
+            navigate(`../${userProfile.id}`);
         });
     };
 
@@ -93,8 +87,10 @@ export default function LessonAddForm() {
                 </Dropdown>
             </FormGroup>
 
-            <button className="btn btn-outline-primary btn-md" onClick={handleSave}>Submit</button>
-            <button className="btn btn-outline-danger btn-md" onClick={() => { navigate(`/lessons/${user.id}`) }}>Cancel</button>
+            <button type="button" className="btn btn-outline-primary btn-md" onClick={handleSave}>Submit</button>
+            <Link to={`/lessons/${userProfile.id}`} className="btn btn-outline-danger btn-md">
+                Cancel
+            </Link>
         </Form>
     );
 };
