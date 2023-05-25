@@ -58,3 +58,7 @@ export const deleteInstrument = (id) => {
         });
     })
 };
+
+export const addTeacherInstrument = () => {
+
+}
