@@ -12,17 +12,29 @@ export default function TeacherInstrumentManager({ isModalOpen, teacherId, teach
     }
 
     const getTeacherInstrumentIds = () => {
-        let instrumentArray = [];
+        let instrumentIdArray = [];
         for (const teacherInstrument of teacherInstruments) {
-            instrumentArray.push(teacherInstrument.id);
+            instrumentIdArray.push(teacherInstrument.id);
         }
-        return instrumentArray;
+        return instrumentIdArray;
     }
 
     useEffect(() => {
         getInstruments();
         setTeacherInstrumentIdArray(getTeacherInstrumentIds());
     }, []);
+
+    const handleInstrumentChange = (instrumentId, isChecked) => {
+        if (isChecked) {
+            setTeacherInstrumentIdArray(prevIds => [...prevIds, instrumentId]);
+        } else {
+            setTeacherInstrumentIdArray(prevIds => prevIds.filter(id => id !== instrumentId));
+        }
+    };
+
+    const handleInstrumentSave = () => {
+
+    }
 
     return (
         <Modal isOpen={isModalOpen} toggle={onClose}>
@@ -34,7 +46,7 @@ export default function TeacherInstrumentManager({ isModalOpen, teacherId, teach
                             <Input
                                 type="checkbox"
                                 checked={teacherInstrumentIdArray.includes(instrument.id)}
-                            // onChange={() => handleInstrumentChange(instrument.id)}
+                                onChange={(event) => handleInstrumentChange(instrument.id, event.target.checked)}
                             />
                             {instrument.name}
                         </Label>
