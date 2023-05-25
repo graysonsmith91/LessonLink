@@ -7,7 +7,7 @@ import TeacherInstrumentManager from "./TeacherInstrumentManager";
 
 export default function TeacherDetails() {
     const [teacher, setTeacher] = useState();
-    const [instruments, setInstruments] = useState([]);
+    const [teacherInstruments, setTeacherInstruments] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { teacherId } = useParams();
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function TeacherDetails() {
 
     useEffect(() => {
         getThisTeacher();
-        getInstrumentsByTeacherId(teacherId).then(instruments => setInstruments(instruments));
+        getInstrumentsByTeacherId(teacherId).then(instruments => setTeacherInstruments(instruments));
     }, []);
 
     if (!teacher) {
@@ -48,12 +48,12 @@ export default function TeacherDetails() {
                                 </div>
 
                                 {
-                                    instruments.length >= 1
+                                    teacherInstruments.length >= 1
                                         ?
                                         <div>
                                             <div>Instruments:</div>
                                             {
-                                                instruments.map((instrument) => {
+                                                teacherInstruments.map((instrument) => {
                                                     return (<div className="instrument-item" key={instrument.id}> {instrument.name} </div>)
                                                 })}
                                         </div>
@@ -68,7 +68,7 @@ export default function TeacherDetails() {
                                     <TeacherInstrumentManager
                                         isModalOpen={isModalOpen}
                                         teacherId={teacherId}
-                                        instruments={instruments}
+                                        teacherInstruments={teacherInstruments}
                                         onClose={handleCloseModal}
                                     />
                                 )}

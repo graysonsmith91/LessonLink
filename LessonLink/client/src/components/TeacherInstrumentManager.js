@@ -1,20 +1,39 @@
+import { useEffect, useState } from "react";
 import { Button, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
+import { getAllInstruments } from "../modules/instrumentManager";
 
 
-export default function TeacherInstrumentManager({ isModalOpen, teacherId, instruments, onClose }) {
+export default function TeacherInstrumentManager({ isModalOpen, teacherId, teacherInstruments, onClose }) {
+    const [allInstruments, setAllInstruments] = useState([]);
+    const [teacherInstrumentIdArray, setTeacherInstrumentIdArray] = useState([]);
 
-    // need to get list of instruments by teacher id and set to checked using includes probably
+    const getInstruments = () => {
+        getAllInstruments().then(instruments => setAllInstruments(instruments));
+    }
+
+    const getTeacherInstrumentIds = () => {
+        let instrumentArray = [];
+        for (const teacherInstrument of teacherInstruments) {
+            instrumentArray.push(teacherInstrument.id);
+        }
+        return instrumentArray;
+    }
+
+    useEffect(() => {
+        getInstruments();
+        setTeacherInstrumentIdArray(getTeacherInstrumentIds());
+    }, []);
 
     return (
         <Modal isOpen={isModalOpen} toggle={onClose}>
             <ModalHeader>Manage Instruments</ModalHeader>
             <ModalBody>
-                {instruments.map((instrument) => (
+                {allInstruments.map((instrument) => (
                     <FormGroup key={instrument.id} check>
                         <Label check>
                             <Input
                                 type="checkbox"
-                                checked={instruments.includes(instrument.id)}
+                                checked={teacherInstrumentIdArray.includes(instrument.id)}
                             // onChange={() => handleInstrumentChange(instrument.id)}
                             />
                             {instrument.name}
