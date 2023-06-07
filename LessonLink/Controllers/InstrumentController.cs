@@ -69,5 +69,12 @@ namespace LessonLink.Controllers
             _instrumentRepository.AddTeacherInstrument(teacherInstrument);
             return CreatedAtAction("Get", new { id = teacherInstrument.Id }, teacherInstrument);
         }
+
+        [HttpDelete("TeacherInstrument")]
+        public IActionResult Delete(TeacherInstrument teacherInstrument)
+        {
+            _instrumentRepository.DeleteTeacherInstrument(teacherInstrument);
+            return NoContent();
+        }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using LessonLink.Models;
 using LessonLink.Utils;
+using System.Security.Cryptography;
 
 namespace LessonLink.Repositories
 {
@@ -165,17 +166,9 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                IF NOT EXISTS (
-                    SELECT 1 
-                    FROM TeacherInstrument 
-                    WHERE InstrumentId = @instrumentId 
-                    AND TeacherId = @teacherId
-                )
-                BEGIN
-                    INSERT INTO TeacherInstrument (InstrumentId, TeacherId)
-                    OUTPUT INSERTED.ID
-                    VALUES (@instrumentId, @teacherId)
-                END";
+                INSERT INTO TeacherInstrument (InstrumentId, TeacherId)
+                OUTPUT INSERTED.ID
+                VALUES (@instrumentId, @teacherId)";
 
                     DbUtils.AddParameter(cmd, "@instrumentId", teacherInstrument.InstrumentId);
                     DbUtils.AddParameter(cmd, "@teacherId", teacherInstrument.TeacherId);
@@ -186,6 +179,25 @@ namespace LessonLink.Repositories
         }
 
 
-        // Delete teacher instrument method here
+        public void DeleteTeacherInstrument(TeacherInstrument teacherInstrument)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM TeacherInstrument
+                            WHERE TeacherId = @teacherId AND InstrumentId = @instrumentId
+                        ";
+
+                    DbUtils.AddParameter(cmd, "@instrumentId", teacherInstrument.InstrumentId);
+                    DbUtils.AddParameter(cmd, "@teacherId", teacherInstrument.TeacherId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

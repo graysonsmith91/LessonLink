@@ -12,5 +12,6 @@ namespace LessonLink.Repositories
         public List<Instrument> GetInstrumentsByTeacherId(int teacherId);
         void Update(Instrument instrument);
         void AddTeacherInstrument(TeacherInstrument teacherInstrument);
+        void DeleteTeacherInstrument(TeacherInstrument teacherInstrument);
     }
 }

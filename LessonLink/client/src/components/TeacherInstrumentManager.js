@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
-import { getAllInstruments } from "../modules/instrumentManager";
+import { addTeacherInstrument, deleteTeacherInstrument, getAllInstruments } from "../modules/instrumentManager";
 
 
 export default function TeacherInstrumentManager({ isModalOpen, teacherId, teacherInstruments, onClose }) {
@@ -38,27 +38,34 @@ export default function TeacherInstrumentManager({ isModalOpen, teacherId, teach
         }
     };
 
-    const handleInstrumentSave = async () => {
-        try {
-            for (const instrumentId of teacherInstrumentIdArray) {
-                if (!uncheckedInstrumentIds.includes(instrumentId)) {
-                    // Add new TeacherInstrument to the database
-                    // need function on instrumentmanager
+    const handleInstrumentSave = () => {
+        const newInstrumentIds = teacherInstrumentIdArray.filter(
+            (id) => !teacherInstruments.some((instrument) => instrument.id === id)
+        );
 
-                    const teacherInstrument = { instrumentId: instrumentId, teacherId: teacherId };
-                    //await addTeacherInstrument(teacherInstrument); //TODO: Add these functions
-                } else {
-                    // Delete existing TeacherInstrument from the database
-                    //await deleteTeacherInstrument(teacherId, instrumentId); //TODO: Add these functions
-                }
-            }
-            onClose(); // Close the modal or perform other actions
-        } catch (error) {
-            console.error("Error occurred while saving teacher instruments:", error);
-        }
-    }
+        newInstrumentIds.forEach((instrumentId) => {
+            const teacherInstrument = {
+                teacherId: teacherId,
+                instrumentId: instrumentId
+            };
 
-    // for each id in the array when saved, create an object with the instrument.id or value and teacherId and add to database
+            addTeacherInstrument(teacherInstrument)
+                .then((response) => {
+                    // Handle successful addition if needed
+                })
+                .catch((error) => {
+                    // Handle error if needed
+                });
+        });
+
+        // TODO:
+        // also loop through uncheckedInstrumentIds and delete each one
+
+        onClose();
+    };
+    // TODO: still need to refresh but it's working to add instruments
+    // when modal is closed refresh
+
 
     return (
         <Modal isOpen={isModalOpen} toggle={onClose}>
@@ -78,7 +85,7 @@ export default function TeacherInstrumentManager({ isModalOpen, teacherId, teach
                 ))}
             </ModalBody>
             <ModalFooter>
-                <Button color="primary">
+                <Button color="primary" onClick={handleInstrumentSave}>
                     Save
                 </Button>
                 <Button color="secondary" onClick={onClose}>
