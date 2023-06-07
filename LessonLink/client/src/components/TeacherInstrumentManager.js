@@ -43,6 +43,8 @@ export default function TeacherInstrumentManager({ isModalOpen, teacherId, teach
             for (const instrumentId of teacherInstrumentIdArray) {
                 if (!uncheckedInstrumentIds.includes(instrumentId)) {
                     // Add new TeacherInstrument to the database
+                    // need function on instrumentmanager
+
                     const teacherInstrument = { instrumentId: instrumentId, teacherId: teacherId };
                     //await addTeacherInstrument(teacherInstrument); //TODO: Add these functions
                 } else {

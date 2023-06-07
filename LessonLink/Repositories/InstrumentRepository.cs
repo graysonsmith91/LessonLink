@@ -165,9 +165,17 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO TeacherInstrument (InstrumentId, TeacherId)
-                        OUTPUT INSERTED.ID
-                        VALUES (@instrumentId, @teacherId)";
+                IF NOT EXISTS (
+                    SELECT 1 
+                    FROM TeacherInstrument 
+                    WHERE InstrumentId = @instrumentId 
+                    AND TeacherId = @teacherId
+                )
+                BEGIN
+                    INSERT INTO TeacherInstrument (InstrumentId, TeacherId)
+                    OUTPUT INSERTED.ID
+                    VALUES (@instrumentId, @teacherId)
+                END";
 
                     DbUtils.AddParameter(cmd, "@instrumentId", teacherInstrument.InstrumentId);
                     DbUtils.AddParameter(cmd, "@teacherId", teacherInstrument.TeacherId);
@@ -176,6 +184,7 @@ namespace LessonLink.Repositories
                 }
             }
         }
+
 
         // Delete teacher instrument method here
     }
