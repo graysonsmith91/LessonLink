@@ -9,7 +9,7 @@ namespace LessonLink.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class InstrumentController : ControllerBase
     {
         private readonly IInstrumentRepository _instrumentRepository;
@@ -60,6 +60,20 @@ namespace LessonLink.Controllers
         public IActionResult Delete(int id)
         {
             _instrumentRepository.Delete(id);
+            return NoContent();
+        }
+
+        [HttpPost("TeacherInstrument")]
+        public IActionResult Post(TeacherInstrument teacherInstrument)
+        {
+            _instrumentRepository.AddTeacherInstrument(teacherInstrument);
+            return CreatedAtAction("Get", new { id = teacherInstrument.Id }, teacherInstrument);
+        }
+
+        [HttpDelete("TeacherInstrument")]
+        public IActionResult Delete(int teacherId, int instrumentId)
+        {
+            _instrumentRepository.DeleteTeacherInstrument(teacherId, instrumentId);
             return NoContent();
         }
     }

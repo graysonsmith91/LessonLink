@@ -58,3 +58,30 @@ export const deleteInstrument = (id) => {
         });
     })
 };
+
+export const addTeacherInstrument = (teacherInstrument) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/teacherInstrument`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(teacherInstrument)
+        });
+    })
+};
+
+export const deleteTeacherInstrument = (teacherId, instrumentId) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/TeacherInstrument?teacherId=${teacherId}&instrumentId=${instrumentId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        });
+    });
+};
+
+

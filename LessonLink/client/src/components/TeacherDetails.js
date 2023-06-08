@@ -7,7 +7,8 @@ import TeacherInstrumentManager from "./TeacherInstrumentManager";
 
 export default function TeacherDetails() {
     const [teacher, setTeacher] = useState();
-    const [instruments, setInstruments] = useState([]);
+    const [teacherInstruments, setTeacherInstruments] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { teacherId } = useParams();
     const navigate = useNavigate();
 
@@ -16,13 +17,25 @@ export default function TeacherDetails() {
     }
 
     useEffect(() => {
-        getThisTeacher();
-        getInstrumentsByTeacherId(teacherId).then(instruments => setInstruments(instruments));
+        fetchInstruments();
     }, []);
+
+    const fetchInstruments = () => {
+        getThisTeacher();
+        getInstrumentsByTeacherId(teacherId).then(instruments => setTeacherInstruments(instruments));
+    }
 
     if (!teacher) {
         return null;
     }
+
+    const handleManageInstrumentsClick = () => {
+        setIsModalOpen(true);
+    }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <>
@@ -39,21 +52,39 @@ export default function TeacherDetails() {
                                 </div>
 
                                 {
-                                    instruments.length >= 1
-                                        ?
+                                    teacherInstruments && teacherInstruments.length >= 1 ? (
                                         <div>
                                             <div>Instruments:</div>
-                                            {
-                                                instruments.map((instrument) => {
-                                                    return (<div className="instrument-item" key={instrument.id}> {instrument.name} </div>)
-                                                })}
+                                            {teacherInstruments.map((instrument) => {
+                                                if (instrument) { // Check if instrument is defined
+                                                    return (
+                                                        <div className="instrument-item" key={instrument.id}>
+                                                            {instrument.name}
+                                                        </div>
+                                                    );
+                                                }
+                                                return null;
+                                            })}
                                         </div>
-                                        :
+                                    ) : (
                                         ""
+                                    )
                                 }
 
+
                                 <Button className="btn btn-sm m-1" onClick={() => { navigate(`/teachers`) }}>Back To All Teachers</Button>
-                                {/* <Button className="btn btn-sm m-1" onClick={handleClick}>Manage Instruments</Button> */}
+                                <Button className="btn btn-sm m-1" onClick={handleManageInstrumentsClick}>Manage Instruments</Button>
+
+                                {isModalOpen && (
+                                    <TeacherInstrumentManager
+                                        isModalOpen={isModalOpen}
+                                        teacherId={teacherId}
+                                        teacherInstruments={teacherInstruments}
+                                        onClose={handleCloseModal}
+                                        setTeacherInstruments={setTeacherInstruments}
+                                        fetchInstruments={fetchInstruments}
+                                    />
+                                )}
                             </ div>
                         </div>
                     </div>
