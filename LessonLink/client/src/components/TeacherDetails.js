@@ -17,9 +17,13 @@ export default function TeacherDetails() {
     }
 
     useEffect(() => {
+        fetchInstruments();
+    }, []);
+
+    const fetchInstruments = () => {
         getThisTeacher();
         getInstrumentsByTeacherId(teacherId).then(instruments => setTeacherInstruments(instruments));
-    }, []);
+    }
 
     if (!teacher) {
         return null;
@@ -48,18 +52,25 @@ export default function TeacherDetails() {
                                 </div>
 
                                 {
-                                    teacherInstruments.length >= 1
-                                        ?
+                                    teacherInstruments && teacherInstruments.length >= 1 ? (
                                         <div>
                                             <div>Instruments:</div>
-                                            {
-                                                teacherInstruments.map((instrument) => {
-                                                    return (<div className="instrument-item" key={instrument.id}> {instrument.name} </div>)
-                                                })}
+                                            {teacherInstruments.map((instrument) => {
+                                                if (instrument) { // Check if instrument is defined
+                                                    return (
+                                                        <div className="instrument-item" key={instrument.id}>
+                                                            {instrument.name}
+                                                        </div>
+                                                    );
+                                                }
+                                                return null;
+                                            })}
                                         </div>
-                                        :
+                                    ) : (
                                         ""
+                                    )
                                 }
+
 
                                 <Button className="btn btn-sm m-1" onClick={() => { navigate(`/teachers`) }}>Back To All Teachers</Button>
                                 <Button className="btn btn-sm m-1" onClick={handleManageInstrumentsClick}>Manage Instruments</Button>
@@ -70,6 +81,8 @@ export default function TeacherDetails() {
                                         teacherId={teacherId}
                                         teacherInstruments={teacherInstruments}
                                         onClose={handleCloseModal}
+                                        setTeacherInstruments={setTeacherInstruments}
+                                        fetchInstruments={fetchInstruments}
                                     />
                                 )}
                             </ div>

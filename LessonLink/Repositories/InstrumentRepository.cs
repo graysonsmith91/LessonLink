@@ -179,7 +179,7 @@ namespace LessonLink.Repositories
         }
 
 
-        public void DeleteTeacherInstrument(TeacherInstrument teacherInstrument)
+        public void DeleteTeacherInstrument(int teacherId, int instrumentId)
         {
             using (var conn = Connection)
             {
@@ -188,12 +188,12 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            DELETE FROM TeacherInstrument
-                            WHERE TeacherId = @teacherId AND InstrumentId = @instrumentId
-                        ";
+                DELETE FROM TeacherInstrument
+                WHERE TeacherId = @teacherId AND InstrumentId = @instrumentId
+            ";
 
-                    DbUtils.AddParameter(cmd, "@instrumentId", teacherInstrument.InstrumentId);
-                    DbUtils.AddParameter(cmd, "@teacherId", teacherInstrument.TeacherId);
+                    DbUtils.AddParameter(cmd, "@teacherId", teacherId);
+                    DbUtils.AddParameter(cmd, "@instrumentId", instrumentId);
 
                     cmd.ExecuteNonQuery();
                 }

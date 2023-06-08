@@ -3,7 +3,7 @@ import { Button, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHe
 import { addTeacherInstrument, deleteTeacherInstrument, getAllInstruments } from "../modules/instrumentManager";
 
 
-export default function TeacherInstrumentManager({ isModalOpen, teacherId, teacherInstruments, onClose }) {
+export default function TeacherInstrumentManager({ isModalOpen, teacherId, teacherInstruments, onClose, setTeacherInstruments, fetchInstruments }) {
     const [allInstruments, setAllInstruments] = useState([]);
     const [teacherInstrumentIdArray, setTeacherInstrumentIdArray] = useState([]);
     const [uncheckedInstrumentIds, setUncheckedInstrumentIds] = useState([]);
@@ -39,6 +39,7 @@ export default function TeacherInstrumentManager({ isModalOpen, teacherId, teach
     };
 
     const handleInstrumentSave = () => {
+        // This checks for duplicates
         const newInstrumentIds = teacherInstrumentIdArray.filter(
             (id) => !teacherInstruments.some((instrument) => instrument.id === id)
         );
@@ -51,21 +52,27 @@ export default function TeacherInstrumentManager({ isModalOpen, teacherId, teach
 
             addTeacherInstrument(teacherInstrument)
                 .then((response) => {
-                    // Handle successful addition if needed
+                    const updatedInstruments = [...teacherInstruments, response.data];
+                    setTeacherInstruments(updatedInstruments);
+                    fetchInstruments();
                 })
                 .catch((error) => {
-                    // Handle error if needed
+                    console.error('Error occurred while adding the teacher instrument:', error);
                 });
         });
 
-        // TODO:
-        // also loop through uncheckedInstrumentIds and delete each one
+        uncheckedInstrumentIds.forEach((instrumentId) => {
+            deleteTeacherInstrument(teacherId, instrumentId)
+                .then((response) => {
+                    fetchInstruments();
+                })
+                .catch((error) => {
+                    console.error('Error occurred while deleting the teacher instrument:', error);
+                });
+        });
 
         onClose();
     };
-    // TODO: still need to refresh but it's working to add instruments
-    // when modal is closed refresh
-
 
     return (
         <Modal isOpen={isModalOpen} toggle={onClose}>

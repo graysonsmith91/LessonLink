@@ -71,9 +71,9 @@ namespace LessonLink.Controllers
         }
 
         [HttpDelete("TeacherInstrument")]
-        public IActionResult Delete(TeacherInstrument teacherInstrument)
+        public IActionResult Delete(int teacherId, int instrumentId)
         {
-            _instrumentRepository.DeleteTeacherInstrument(teacherInstrument);
+            _instrumentRepository.DeleteTeacherInstrument(teacherId, instrumentId);
             return NoContent();
         }
     }
