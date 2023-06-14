@@ -33,7 +33,7 @@ export default function TeacherDeleteCheck() {
                 <h2>Delete Teacher?</h2>
                 <FormGroup>
                     <div>
-                        <Label for='fullName'>{teacher.fullName}</Label>
+                        <Label for='fullName' className='teacher-name'>{teacher.fullName}</Label>
                     </div>
                     <Button color="danger">Delete</Button>
                 </FormGroup>

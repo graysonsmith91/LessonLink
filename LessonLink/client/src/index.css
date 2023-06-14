@@ -31,9 +31,47 @@ main {
   margin: 0 30px;
 }
 
-.form {
+/* .form {
   border: 1px solid #ccc;
   padding: 10px;
   width: 40vw;
   margin: 40px auto;
+} */
+
+.form {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+legend {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.student-info {
+  margin-bottom: 20px;
+}
+
+.cancel-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  margin-right: 10px;
+}
+
+.cancel-btn:hover {
+  background-color: #0056b3;
+}
+
+.student-name {
+  font-size: 20px;
+}
+
+.teacher-name {
+  font-size: 20px;
 }
