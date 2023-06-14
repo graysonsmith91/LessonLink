@@ -29,15 +29,15 @@ export default function StudentDeleteCheck({ userProfile }) {
     return (
         <Form onSubmit={(e) => deleteSubmit(e)} className='form'>
             <fieldset>
-                <h2>Delete Student?</h2>
+                <legend>Delete Student?</legend>
                 <FormGroup>
-                    <div>
-                        <Label for='fullName'>{student.fullName}</Label>
+                    <div className="student-info">
+                        <Label for='fullName' className='student-name'>{student.fullName}</Label>
                     </div>
                     <Button color="danger">Delete</Button>
                 </FormGroup>
                 <FormGroup>
-                    <Button className="btn btn-md" onClick={() => { navigate(`/students/${userProfile.id}`) }}>Cancel</Button>
+                    <Button className="cancel-btn" onClick={() => { navigate(`/students/${userProfile.id}`) }}>Cancel</Button>
                 </FormGroup>
             </fieldset>
         </Form>
