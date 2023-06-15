@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Table } from "reactstrap";
-import { getStudentsByTeacherId } from "../modules/studentManager";
+import { getStudentsByTeacherId } from "../../modules/studentManager";
 import { useNavigate, useParams } from "react-router-dom";
 import Student from "./Student";
 

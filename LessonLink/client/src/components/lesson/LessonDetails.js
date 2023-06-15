@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteLesson, getLesson } from "../modules/lessonManager";
 import { Button, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter, Label, Input } from "reactstrap";
-import { editLesson } from "../modules/lessonManager";
+import { deleteLesson, editLesson, getLesson } from "../../modules/lessonManager";
+
 
 export default function LessonDetails({ userProfile }) {
     const [isModalOpen, setIsModalOpen] = useState(false);

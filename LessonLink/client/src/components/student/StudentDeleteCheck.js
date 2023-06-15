@@ -1,7 +1,8 @@
 import { Button, Form, FormGroup, Label } from 'reactstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { deleteStudent, getStudent } from '../modules/studentManager';
+import { deleteStudent, getStudent } from '../../modules/studentManager';
+
 
 export default function StudentDeleteCheck({ userProfile }) {
     const navigate = useNavigate();

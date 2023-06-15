@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 
 import { Row, Col, Table } from 'reactstrap';
 import { useNavigate, useParams } from "react-router-dom";
-import { getLessonsByTeacherId } from "../modules/lessonManager";
+
 import Lesson from "./Lesson";
+import { getLessonsByTeacherId } from "../../modules/lessonManager";
 
 export default function LessonList() {
     const [lessons, setLessons] = useState([]);

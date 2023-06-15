@@ -1,9 +1,9 @@
 import { Button, Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { editStudent, getStudent } from '../modules/studentManager';
-import { getAllInstruments } from '../modules/instrumentManager';
-import { getAllTeachers } from '../modules/teacherManager';
+import { editStudent, getStudent } from '../../modules/studentManager';
+import { getAllInstruments } from '../../modules/instrumentManager';
+import { getAllTeachers } from '../../modules/teacherManager';
 
 
 export default function StudentEditForm({ userProfile }) {

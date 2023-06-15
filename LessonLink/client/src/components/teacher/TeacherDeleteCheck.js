@@ -1,7 +1,7 @@
 import { Button, Form, FormGroup, Label } from 'reactstrap';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { deleteTeacher, getTeacher } from '../modules/teacherManager';
+import { deleteTeacher, getTeacher } from '../../modules/teacherManager';
 
 export default function TeacherDeleteCheck() {
     const [teacher, setTeacher] = useState({

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
-import { addTeacherInstrument, deleteTeacherInstrument, getAllInstruments } from "../modules/instrumentManager";
+import { addTeacherInstrument, deleteTeacherInstrument, getAllInstruments } from "../../modules/instrumentManager";
 
 
 export default function TeacherInstrumentManager({ isModalOpen, teacherId, teacherInstruments, onClose, setTeacherInstruments, fetchInstruments }) {

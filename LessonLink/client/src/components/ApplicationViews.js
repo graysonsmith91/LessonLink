@@ -3,17 +3,17 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
-import TeacherList from "./TeacherList";
-import TeacherEditForm from "./TeacherEditForm";
-import TeacherDeleteCheck from "./TeacherDeleteCheck";
-import StudentList from "./StudentList";
-import StudentAddForm from "./StudentAddForm";
-import StudentEditForm from "./StudentEditForm";
-import StudentDeleteCheck from "./StudentDeleteCheck";
-import TeacherDetails from "./TeacherDetails";
-import LessonList from "./LessonList";
-import LessonDetails from "./LessonDetails";
-import LessonAddForm from "./LessonAddForm";
+import TeacherList from "./teacher/TeacherList";
+import TeacherDetails from "./teacher/TeacherDetails";
+import TeacherEditForm from "./teacher/TeacherEditForm";
+import TeacherDeleteCheck from "./teacher/TeacherDeleteCheck";
+import StudentList from "./student/StudentList";
+import StudentAddForm from "./student/StudentAddForm";
+import StudentEditForm from "./student/StudentEditForm";
+import StudentDeleteCheck from "./student/StudentDeleteCheck";
+import LessonList from "./lesson/LessonList";
+import LessonDetails from "./lesson/LessonDetails";
+import LessonAddForm from "./lesson/LessonAddForm";
 
 
 export default function ApplicationViews({ isLoggedIn, userProfile }) {
