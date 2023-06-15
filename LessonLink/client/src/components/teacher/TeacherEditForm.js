@@ -1,7 +1,7 @@
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { editTeacher, getTeacher } from '../modules/teacherManager';
+import { editTeacher, getTeacher } from '../../modules/teacherManager';
 
 
 export default function TeacherEditForm() {

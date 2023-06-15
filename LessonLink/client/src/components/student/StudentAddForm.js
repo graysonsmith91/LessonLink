@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { addStudent } from '../modules/studentManager';
-import { getAllInstruments } from '../modules/instrumentManager';
-import { getAllTeachers } from '../modules/teacherManager';
+import { getAllInstruments } from '../../modules/instrumentManager';
+import { getAllTeachers } from '../../modules/teacherManager';
+import { addStudent } from '../../modules/studentManager';
+
 
 export default function StudentAddForm({ userProfile }) {
     const emptyStudent = {

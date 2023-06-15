@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
-import { me } from '../modules/authManager';
-import { getStudentsByTeacherId } from '../modules/studentManager';
-import { addLesson } from '../modules/lessonManager';
+import { getStudentsByTeacherId } from '../../modules/studentManager';
+import { addLesson } from '../../modules/lessonManager';
 
 export default function LessonAddForm({ userProfile }) {
     const emptyLesson = {

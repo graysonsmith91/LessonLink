@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Table } from "reactstrap";
-import { getAllTeachers } from "../modules/teacherManager";
+import { getAllTeachers } from "../../modules/teacherManager";
 import Teacher from "./Teacher";
 
 export default function TeacherList({ userProfile }) {

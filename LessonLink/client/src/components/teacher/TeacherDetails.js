@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTeacher } from "../modules/teacherManager";
-import { getInstrumentsByTeacherId } from "../modules/instrumentManager";
+import { getTeacher } from "../../modules/teacherManager";
+import { getInstrumentsByTeacherId } from "../../modules/instrumentManager";
 import { Button } from "reactstrap";
 import TeacherInstrumentManager from "./TeacherInstrumentManager";
 
