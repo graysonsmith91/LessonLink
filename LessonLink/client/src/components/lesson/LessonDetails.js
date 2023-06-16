@@ -85,6 +85,7 @@ export default function LessonDetails({ userProfile }) {
 
                                 <div className="px-4 mt-1">
                                     <p className="fonts">Date: {(new Date(lesson?.dateTime)).toLocaleDateString('en-US', { timeZone: 'America/Chicago' })}</p>
+                                    <p className="fonts">Instrument: {lesson?.student?.instrument?.name}</p>
                                     <p>Notes: <br />{lesson.note}</p>
                                 </div>
 

@@ -25,6 +25,8 @@ namespace LessonLink.Models
         [Required]
         public int InstrumentId { get; set; }
 
+        public Instrument Instrument { get; set; }
+
         [Required]
         public int TeacherId { get; set; }
 

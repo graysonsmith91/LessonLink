@@ -8,7 +8,7 @@ namespace LessonLink.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class LessonController : ControllerBase
     {
         private readonly ILessonRepository _lessonRepository;
