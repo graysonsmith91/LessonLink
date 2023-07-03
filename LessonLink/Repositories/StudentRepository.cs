@@ -57,9 +57,10 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT Id, FirstName, LastName, GuardianName, Email, InstrumentId, TeacherId
-                          FROM Student
-                          WHERE Id = @id";
+                          SELECT s.Id, s.FirstName, s.LastName, s.GuardianName, s.Email, s.TeacherId, s.InstrumentId, i.Name AS InstrumentName
+                          FROM Student s
+                          JOIN Instrument i ON i.Id = s.InstrumentId
+                          WHERE s.Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
@@ -76,8 +77,12 @@ namespace LessonLink.Repositories
                                 LastName = DbUtils.GetString(reader, "LastName"),
                                 GuardianName = DbUtils.GetString(reader, "GuardianName"),
                                 Email = DbUtils.GetString(reader, "Email"),
+                                TeacherId = DbUtils.GetInt(reader, "TeacherId"),
                                 InstrumentId = DbUtils.GetInt(reader, "InstrumentId"),
-                                TeacherId = DbUtils.GetInt(reader, "TeacherId")
+                                Instrument = new Instrument()
+                                {
+                                    Name = DbUtils.GetString(reader, "InstrumentName")
+                                }
                             };
                         }
                         return student;
