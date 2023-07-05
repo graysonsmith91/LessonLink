@@ -2,8 +2,6 @@ import { getToken } from "./authManager";
 
 const baseUrl = "/api/student";
 
-// allStudents if needed can go here
-
 export const getStudentsByTeacherId = (id) => {
     return getToken().then((token) => {
         return fetch(`${baseUrl}/myStudents/${id}`, {
