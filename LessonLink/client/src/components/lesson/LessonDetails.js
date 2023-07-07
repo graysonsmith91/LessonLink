@@ -84,7 +84,7 @@ export default function LessonDetails({ userProfile }) {
                                 <h5 className="mt-2 mb-0">{lesson?.student?.fullName}</h5>
 
                                 <div className="px-4 mt-1">
-                                    <p className="fonts">Date: {(new Date(lesson?.dateTime)).toLocaleDateString('en-US', { timeZone: 'America/Chicago' })}</p>
+                                    <p className="fonts">Date: {(new Date(lesson?.startTime)).toLocaleDateString('en-US', { timeZone: 'America/Chicago' })}</p>
                                     <p className="fonts">Instrument: {lesson?.student?.instrument?.name}</p>
                                     <p>Notes: <br />{lesson.note}</p>
                                 </div>

@@ -38,6 +38,11 @@ export default function LessonCalendar() {
         setEvents(eventsArray);
     };
 
+    const handleEventClick = (eventInfo) => {
+        const lessonId = eventInfo.event.id;
+        navigate(`/lessons/details/${lessonId}`);
+    }
+
     return (
         <>
             <div className="calendar-container">
@@ -54,6 +59,8 @@ export default function LessonCalendar() {
                     slotMaxTime="20:00:00"
                     events={events}
                     nowIndicator={true}
+                    eventClick={handleEventClick}
+                    eventClassNames="event-pointer"
                 />
             </div>
         </>
