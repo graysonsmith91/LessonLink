@@ -18,7 +18,7 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            SELECT Id, StudentId, TeacherId, LessonLength, DateTime, Note, isComplete
+                            SELECT Id, StudentId, TeacherId, LessonLength, StartTime, EndTime, Note, isComplete
                             FROM Lesson;";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -33,7 +33,8 @@ namespace LessonLink.Repositories
                                 StudentId = DbUtils.GetInt(reader, "StudentId"),
                                 TeacherId = DbUtils.GetInt(reader, "TeacherId"),
                                 LessonLength = DbUtils.GetInt(reader, "LessonLength"),
-                                DateTime = DbUtils.GetDateTime(reader, "DateTime"),
+                                StartTime = DbUtils.GetDateTime(reader, "StartTime"),
+                                EndTime = DbUtils.GetDateTime(reader, "EndTime"),
                                 Note = DbUtils.GetString(reader, "Note"),
                                 isComplete = DbUtils.GetBool(reader, "isComplete")
                             });
@@ -53,7 +54,7 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                          SELECT l.Id, l.StudentId, l.TeacherId AS LessonTeacherId, l.LessonLength, l.DateTime, l.Note, l.isComplete,
+                          SELECT l.Id, l.StudentId, l.TeacherId AS LessonTeacherId, l.LessonLength, l.StartTime, l.EndTime, l.Note, l.isComplete,
                               s.FirstName, s.LastName, s.Email, s.InstrumentId,
                               i.Name AS InstrumentName
                           FROM Lesson l
@@ -74,7 +75,8 @@ namespace LessonLink.Repositories
                                 Id = DbUtils.GetInt(reader, "Id"),
                                 TeacherId = DbUtils.GetInt(reader, "LessonTeacherId"),
                                 LessonLength = DbUtils.GetInt(reader, "LessonLength"),
-                                DateTime = DbUtils.GetDateTime(reader, "DateTime"),
+                                StartTime = DbUtils.GetDateTime(reader, "StartTime"),
+                                EndTime = DbUtils.GetDateTime(reader, "EndTime"),
                                 Note = DbUtils.GetString(reader, "Note"),
                                 isComplete = DbUtils.GetBool(reader, "isComplete"),
                                 StudentId = DbUtils.GetInt(reader, "StudentId"),
@@ -106,12 +108,12 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT l.Id, l.StudentId, l.TeacherId AS LessonTeacherId, l.LessonLength, l.DateTime, l.Note, l.isComplete,
+                       SELECT l.Id, l.StudentId, l.TeacherId AS LessonTeacherId, l.LessonLength, l.StartTime, l.EndTime, l.Note, l.isComplete,
                               s.FirstName, s.LastName
                        FROM Lesson l
                        LEFT JOIN Student s ON s.Id = l.StudentId
                        WHERE l.TeacherId = @teacherId
-                       ORDER BY DateTime;";
+                       ORDER BY StartTime;";
 
                     cmd.Parameters.AddWithValue("@teacherId", teacherId);
                     var reader = cmd.ExecuteReader();
@@ -125,7 +127,8 @@ namespace LessonLink.Repositories
                             Id = DbUtils.GetInt(reader, "Id"),
                             TeacherId = DbUtils.GetInt(reader, "LessonTeacherId"),
                             LessonLength = DbUtils.GetInt(reader, "LessonLength"),
-                            DateTime = DbUtils.GetDateTime(reader, "DateTime"),
+                            StartTime = DbUtils.GetDateTime(reader, "StartTime"),
+                            EndTime = DbUtils.GetDateTime(reader, "EndTime"),
                             Note = DbUtils.GetString(reader, "Note"),
                             isComplete = DbUtils.GetBool(reader, "isComplete"),
                             StudentId = DbUtils.GetInt(reader, "StudentId"),
@@ -154,14 +157,15 @@ namespace LessonLink.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Lesson (StudentId, TeacherId, LessonLength, DateTime, Note, isComplete)
+                        INSERT INTO Lesson (StudentId, TeacherId, LessonLength, StartTime, EndTime, Note, isComplete)
                         OUTPUT INSERTED.ID
-                        VALUES (@StudentId, @TeacherId, @LessonLength, @DateTime, @Note, @isComplete)";
+                        VALUES (@StudentId, @TeacherId, @LessonLength, @StartTime, @EndTime, @Note, @isComplete)";
 
                     DbUtils.AddParameter(cmd, "@StudentId", lesson.StudentId);
                     DbUtils.AddParameter(cmd, "@TeacherId", lesson.TeacherId);
                     DbUtils.AddParameter(cmd, "@LessonLength", lesson.LessonLength);
-                    DbUtils.AddParameter(cmd, "@DateTime", lesson.DateTime);
+                    DbUtils.AddParameter(cmd, "@StartTime", lesson.StartTime);
+                    DbUtils.AddParameter(cmd, "@EndTime", lesson.EndTime);
                     DbUtils.AddParameter(cmd, "@Note", lesson.Note);
                     DbUtils.AddParameter(cmd, "@isComplete", lesson.isComplete);
 
@@ -182,7 +186,8 @@ namespace LessonLink.Repositories
                            SET StudentId = @studentId,
                                TeacherId = @teacherId,
                                LessonLength = @lessonLength,
-                               DateTime = @dateTime,
+                               StartTime = @startTime,
+                               EndTime = @endTime,
                                Note = @note,
                                isComplete = @isComplete
                          WHERE Id = @id";
@@ -191,7 +196,8 @@ namespace LessonLink.Repositories
                     DbUtils.AddParameter(cmd, "@studentId", lesson.StudentId);
                     DbUtils.AddParameter(cmd, "@teacherId", lesson.TeacherId);
                     DbUtils.AddParameter(cmd, "@lessonLength", lesson.LessonLength);
-                    DbUtils.AddParameter(cmd, "@dateTime", lesson.DateTime);
+                    DbUtils.AddParameter(cmd, "@startTime", lesson.StartTime);
+                    DbUtils.AddParameter(cmd, "@endTime", lesson.EndTime);
                     DbUtils.AddParameter(cmd, "@note", lesson.Note);
                     DbUtils.AddParameter(cmd, "@isComplete", lesson.isComplete);
 

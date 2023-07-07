@@ -11,7 +11,9 @@ namespace LessonLink.Models
         public int LessonLength { get; set; }
 
         [Required]
-        public DateTime DateTime { get; set; }
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
 
         public string Note { get; set; }
 

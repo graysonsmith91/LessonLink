@@ -25,7 +25,7 @@ export default function StudentDetails({ userProfile }) {
     // }
 
     // const handleInputChange = (evt) => {
-    //     const value = evt.target.value;
+    //     const value = evt.target.value;npm s
     //     const key = evt.target.id;
     //     const lessonCopy = { ...lesson };
     //     lessonCopy[key] = value;
