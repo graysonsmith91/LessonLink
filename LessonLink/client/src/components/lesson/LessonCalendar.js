@@ -8,6 +8,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 
 export default function LessonCalendar() {
     const [lessons, setLessons] = useState([]);
+    const [events, setEvents] = useState([]);
     const { teacherId } = useParams();
     const navigate = useNavigate();
 
@@ -18,6 +19,24 @@ export default function LessonCalendar() {
     useEffect(() => {
         getLessons();
     }, []);
+
+    useEffect(() => {
+        getCalendarEvents();
+    }, [lessons])
+
+    const getCalendarEvents = () => {
+        const eventsArray = [];
+        for (const lesson of lessons) {
+            const eventObject = {
+                id: lesson.id,
+                title: `${lesson.student.fullName}`,
+                start: `${lesson.startTime}`,
+                end: `${lesson.endTime}`
+            };
+            eventsArray.push(eventObject);
+        }
+        setEvents(eventsArray);
+    };
 
     return (
         <>
@@ -30,8 +49,11 @@ export default function LessonCalendar() {
                         center: "title",
                         end: "dayGridMonth,timeGridWeek,timeGridDay",
                     }}
-                    height={"70vh"}
-                    dayMinWidth={"50vw"}
+                    height={"80vh"}
+                    slotMinTime="9:00:00"
+                    slotMaxTime="20:00:00"
+                    events={events}
+                    nowIndicator={true}
                 />
             </div>
         </>
