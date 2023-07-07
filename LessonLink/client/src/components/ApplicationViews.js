@@ -15,6 +15,7 @@ import LessonList from "./lesson/LessonList";
 import LessonDetails from "./lesson/LessonDetails";
 import LessonAddForm from "./lesson/LessonAddForm";
 import StudentDetails from "./student/StudentDetails";
+import LessonCalendar from "./lesson/LessonCalendar";
 
 
 export default function ApplicationViews({ isLoggedIn, userProfile }) {
@@ -43,7 +44,7 @@ export default function ApplicationViews({ isLoggedIn, userProfile }) {
                     </Route>
 
                     <Route path="lessons">
-                        <Route path=":teacherId" element={isLoggedIn ? <LessonList /> : <Navigate to="/login" />} />
+                        <Route path=":teacherId" element={isLoggedIn ? <LessonCalendar /> : <Navigate to="/login" />} />
                         <Route path="add" element={isLoggedIn ? <LessonAddForm userProfile={userProfile} /> : <Navigate to="/login" />} />
                         <Route path="details/:teacherId" element={isLoggedIn ? <LessonDetails userProfile={userProfile} /> : <Navigate to="/login" />} />
                     </Route>

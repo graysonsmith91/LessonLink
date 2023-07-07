@@ -75,3 +75,8 @@ legend {
 .teacher-name {
   font-size: 20px;
 }
+
+.calendar-container {
+  width: 80%;
+  margin: 50px auto;
+}
