@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter, Label, Input } from "reactstrap";
 import { deleteLesson, editLesson, getLesson } from "../../modules/lessonManager";
+import moment from "moment/moment";
 
 
 export default function LessonDetails({ userProfile }) {
@@ -68,18 +69,18 @@ export default function LessonDetails({ userProfile }) {
         lessonCopy[key] = value;
 
         if (key === "startTime" || key === "lessonLength") {
-            const startTime = new Date(lessonCopy.startTime);
+            const startTime = moment(lessonCopy.startTime);
             const lessonLength = parseInt(lessonCopy.lessonLength);
 
             if (!isNaN(startTime) && !isNaN(lessonLength)) {
-                const endTime = new Date(startTime.getTime() + lessonLength * 60000);
-                endTime.setHours(endTime.getHours() - 5);
-                lessonCopy.endTime = endTime.toISOString().slice(0, 16);
+                const endTime = startTime.clone().add(lessonLength, 'minutes');
+                lessonCopy.endTime = endTime.format('YYYY-MM-DDTHH:mm');
             }
         }
 
         setLesson(lessonCopy);
     };
+
 
 
     if (!lesson) {
