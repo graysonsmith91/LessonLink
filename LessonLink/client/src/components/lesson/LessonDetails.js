@@ -66,18 +66,32 @@ export default function LessonDetails({ userProfile }) {
         const key = evt.target.id;
         const lessonCopy = { ...lesson };
         lessonCopy[key] = value;
+
+        if (key === "startTime" || key === "lessonLength") {
+            const startTime = new Date(lessonCopy.startTime);
+            const lessonLength = parseInt(lessonCopy.lessonLength);
+
+            if (!isNaN(startTime) && !isNaN(lessonLength)) {
+                const endTime = new Date(startTime.getTime() + lessonLength * 60000);
+                endTime.setHours(endTime.getHours() - 5);
+                lessonCopy.endTime = endTime.toISOString().slice(0, 16);
+            }
+        }
+
         setLesson(lessonCopy);
     };
+
 
     if (!lesson) {
         return null;
     }
 
-    const startTime = new Date(lesson.startTime);
-    const endTime = new Date(lesson.endTime);
 
-    const formattedStartTime = startTime.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-    const formattedEndTime = endTime.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const displayStartTime = new Date(lesson.startTime);
+    const displayEndTime = new Date(lesson.endTime);
+
+    const formattedStartTime = displayStartTime.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const formattedEndTime = displayEndTime.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
     const formattedTimeRange = `${formattedStartTime} - ${formattedEndTime}`;
 
     return (
@@ -121,8 +135,8 @@ export default function LessonDetails({ userProfile }) {
                 <ModalHeader toggle={handleEditCloseModal}>Edit Lesson</ModalHeader>
                 <ModalBody>
                     <FormGroup>
-                        <Label for="dateTime">Date/Time:</Label>
-                        <Input type="datetime-local" name="dateTime" id="dateTime" value={lesson.dateTime} onChange={handleInputChange} />
+                        <Label for="startTime">Date/Time:</Label>
+                        <Input type="dateTime-local" name="startTime" id="startTime" value={lesson.startTime} onChange={handleInputChange} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="lessonLength">Length (minutes):</Label>
