@@ -73,6 +73,13 @@ export default function LessonDetails({ userProfile }) {
         return null;
     }
 
+    const startTime = new Date(lesson.startTime);
+    const endTime = new Date(lesson.endTime);
+
+    const formattedStartTime = startTime.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const formattedEndTime = endTime.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const formattedTimeRange = `${formattedStartTime} - ${formattedEndTime}`;
+
     return (
         <>
             <div className="container mt-5">
@@ -81,10 +88,11 @@ export default function LessonDetails({ userProfile }) {
                         <div className="card p-3 py-4">
 
                             <div className="text-center mt-3">
-                                <h5 className="mt-2 mb-0">{lesson?.student?.fullName}</h5>
+                                <h5 className="mt-2 mb-0">{lesson?.student?.fullName}'s Lesson</h5>
 
                                 <div className="px-4 mt-1">
                                     <p className="fonts">Date: {(new Date(lesson?.startTime)).toLocaleDateString('en-US', { timeZone: 'America/Chicago' })}</p>
+                                    <p className="fonts">Time: {formattedTimeRange}</p>
                                     <p className="fonts">Instrument: {lesson?.student?.instrument?.name}</p>
                                     <p>Notes: <br />{lesson.note}</p>
                                 </div>
