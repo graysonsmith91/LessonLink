@@ -31,12 +31,17 @@ export default function LessonCalendar() {
                 id: lesson.id,
                 title: `${lesson.student.fullName}`,
                 start: `${lesson.startTime}`,
-                end: `${lesson.endTime}`
+                end: `${lesson.endTime}`,
+                isComplete: lesson.isComplete
             };
             eventsArray.push(eventObject);
         }
         setEvents(eventsArray);
     };
+
+    const handleAddLesson = () => {
+        navigate("/lessons/add", { state: { lessons: lessons } });
+    }
 
     const handleEventClick = (eventInfo) => {
         const lessonId = eventInfo.event.id;
@@ -48,7 +53,9 @@ export default function LessonCalendar() {
             <div className="calendar-container">
 
                 <div className="new-button">
-                    <button className="btn btn-outline-primary btn-md" onClick={() => navigate(`/lessons/add`)}>Add New Lesson</button>
+                    <button
+                        className="btn btn-outline-primary btn-md"
+                        onClick={handleAddLesson}>Add New Lesson</button>
                 </div>
 
                 <Fullcalendar

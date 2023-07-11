@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import { getStudentsByTeacherId } from '../../modules/studentManager';
 import { addLesson } from '../../modules/lessonManager';
@@ -22,6 +22,12 @@ export default function LessonAddForm({ userProfile }) {
 
     const navigate = useNavigate();
     const toggleStudentDropdown = () => setStudentDropdownOpen((prevState) => !prevState);
+
+    const location = useLocation();
+    const { lessons } = location.state;
+    // Have access to list of existing lessons using this
+    // Can check to compare and prevent overlapping events
+    console.log(lessons);
 
     useEffect(() => {
         getStudentsByTeacherId(userProfile.id).then((students) => {
