@@ -31,13 +31,6 @@ main {
   margin: 0 30px;
 }
 
-/* .form {
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: 40vw;
-  margin: 40px auto;
-} */
-
 .form {
   max-width: 400px;
   margin: 50px auto;
@@ -83,4 +76,8 @@ legend {
 
 .event-pointer {
   cursor: pointer;
+}
+
+.new-button {
+  margin-bottom: 15px;
 }

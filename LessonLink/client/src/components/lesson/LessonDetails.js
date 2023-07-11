@@ -82,7 +82,6 @@ export default function LessonDetails({ userProfile }) {
     };
 
 
-
     if (!lesson) {
         return null;
     }
@@ -118,10 +117,10 @@ export default function LessonDetails({ userProfile }) {
                                     <Button className="btn btn-sm m-1" onClick={handleDeleteOpenModal}>Delete Lesson</Button>
                                 </FormGroup>
                                 <FormGroup>
-                                    {lesson && new Date(lesson.dateTime) < new Date() && !lesson.isComplete && (
+                                    {lesson && new Date(lesson.startTime) < new Date() && !lesson.isComplete && (
                                         <Button className="btn btn-sm" color="primary" onClick={handleLessonComplete}>Complete Lesson</Button>
                                     )}
-                                    {lesson && new Date(lesson.dateTime) < new Date() && lesson.isComplete && (
+                                    {lesson && new Date(lesson.startTime) < new Date() && lesson.isComplete && (
                                         <Button className="btn btn-sm" color="danger" onClick={handleLessonIncomplete}>Incomplete Lesson</Button>
                                     )}
                                 </FormGroup>

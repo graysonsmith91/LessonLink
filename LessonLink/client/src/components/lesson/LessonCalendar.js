@@ -46,6 +46,11 @@ export default function LessonCalendar() {
     return (
         <>
             <div className="calendar-container">
+
+                <div className="new-button">
+                    <button className="btn btn-outline-primary btn-md" onClick={() => navigate(`/lessons/add`)}>Add New Lesson</button>
+                </div>
+
                 <Fullcalendar
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     initialView={"dayGridMonth"}
