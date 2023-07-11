@@ -44,7 +44,7 @@ export default function LessonList() {
                         </thead>
                         <tbody>
                             {lessons
-                                .filter((lesson) => new Date(lesson.dateTime) > new Date())
+                                .filter((lesson) => new Date(lesson.startTime) > new Date())
                                 .map((lesson) => (
                                     <Lesson lesson={lesson} key={lesson.id} />
                                 ))}
@@ -66,7 +66,7 @@ export default function LessonList() {
                             </thead>
                             <tbody>
                                 {lessons
-                                    .filter((lesson) => new Date(lesson.dateTime) < new Date() && lesson.isComplete === false)
+                                    .filter((lesson) => new Date(lesson.startTime) < new Date() && lesson.isComplete === false)
                                     .map((lesson) => (
                                         <Lesson lesson={lesson} key={lesson.id} />
                                     ))}
@@ -86,7 +86,7 @@ export default function LessonList() {
                             </thead>
                             <tbody>
                                 {lessons
-                                    .filter((lesson) => new Date(lesson.dateTime) < new Date() && lesson.isComplete === true)
+                                    .filter((lesson) => new Date(lesson.startTime) < new Date() && lesson.isComplete === true)
                                     .map((lesson) => (
                                         <Lesson lesson={lesson} key={lesson.id} />
                                     ))}

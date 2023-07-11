@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter, Label, Input } from "reactstrap";
 import { deleteLesson, editLesson, getLesson } from "../../modules/lessonManager";
+import moment from "moment/moment";
 
 
 export default function LessonDetails({ userProfile }) {
@@ -66,12 +67,32 @@ export default function LessonDetails({ userProfile }) {
         const key = evt.target.id;
         const lessonCopy = { ...lesson };
         lessonCopy[key] = value;
+
+        if (key === "startTime" || key === "lessonLength") {
+            const startTime = moment(lessonCopy.startTime);
+            const lessonLength = parseInt(lessonCopy.lessonLength);
+
+            if (!isNaN(startTime) && !isNaN(lessonLength)) {
+                const endTime = startTime.clone().add(lessonLength, 'minutes');
+                lessonCopy.endTime = endTime.format('YYYY-MM-DDTHH:mm');
+            }
+        }
+
         setLesson(lessonCopy);
     };
+
 
     if (!lesson) {
         return null;
     }
+
+
+    const displayStartTime = new Date(lesson.startTime);
+    const displayEndTime = new Date(lesson.endTime);
+
+    const formattedStartTime = displayStartTime.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const formattedEndTime = displayEndTime.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const formattedTimeRange = `${formattedStartTime} - ${formattedEndTime}`;
 
     return (
         <>
@@ -81,10 +102,11 @@ export default function LessonDetails({ userProfile }) {
                         <div className="card p-3 py-4">
 
                             <div className="text-center mt-3">
-                                <h5 className="mt-2 mb-0">{lesson?.student?.fullName}</h5>
+                                <h5 className="mt-2 mb-0">{lesson?.student?.fullName}'s Lesson</h5>
 
                                 <div className="px-4 mt-1">
-                                    <p className="fonts">Date: {(new Date(lesson?.dateTime)).toLocaleDateString('en-US', { timeZone: 'America/Chicago' })}</p>
+                                    <p className="fonts">Date: {(new Date(lesson?.startTime)).toLocaleDateString('en-US', { timeZone: 'America/Chicago' })}</p>
+                                    <p className="fonts">Time: {formattedTimeRange}</p>
                                     <p className="fonts">Instrument: {lesson?.student?.instrument?.name}</p>
                                     <p>Notes: <br />{lesson.note}</p>
                                 </div>
@@ -95,10 +117,10 @@ export default function LessonDetails({ userProfile }) {
                                     <Button className="btn btn-sm m-1" onClick={handleDeleteOpenModal}>Delete Lesson</Button>
                                 </FormGroup>
                                 <FormGroup>
-                                    {lesson && new Date(lesson.dateTime) < new Date() && !lesson.isComplete && (
+                                    {lesson && new Date(lesson.startTime) < new Date() && !lesson.isComplete && (
                                         <Button className="btn btn-sm" color="primary" onClick={handleLessonComplete}>Complete Lesson</Button>
                                     )}
-                                    {lesson && new Date(lesson.dateTime) < new Date() && lesson.isComplete && (
+                                    {lesson && new Date(lesson.startTime) < new Date() && lesson.isComplete && (
                                         <Button className="btn btn-sm" color="danger" onClick={handleLessonIncomplete}>Incomplete Lesson</Button>
                                     )}
                                 </FormGroup>
@@ -113,8 +135,8 @@ export default function LessonDetails({ userProfile }) {
                 <ModalHeader toggle={handleEditCloseModal}>Edit Lesson</ModalHeader>
                 <ModalBody>
                     <FormGroup>
-                        <Label for="dateTime">Date/Time:</Label>
-                        <Input type="datetime-local" name="dateTime" id="dateTime" value={lesson.dateTime} onChange={handleInputChange} />
+                        <Label for="startTime">Date/Time:</Label>
+                        <Input type="dateTime-local" name="startTime" id="startTime" value={lesson.startTime} onChange={handleInputChange} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="lessonLength">Length (minutes):</Label>

@@ -3,13 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, FormGroup, Label, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import { getStudentsByTeacherId } from '../../modules/studentManager';
 import { addLesson } from '../../modules/lessonManager';
+import moment from "moment/moment";
 
 export default function LessonAddForm({ userProfile }) {
     const emptyLesson = {
         studentId: 0,
         teacherId: 0,
         lessonLength: "",
-        dateTime: "",
+        startTime: "",
+        endTime: "",
         note: "",
         isComplete: false
     };
@@ -36,9 +38,19 @@ export default function LessonAddForm({ userProfile }) {
         const key = evt.target.id;
         const lessonCopy = { ...lesson };
         lessonCopy[key] = value;
+
+        if (key === "startTime" || key === "lessonLength") {
+            const startTime = moment(lessonCopy.startTime);
+            const lessonLength = parseInt(lessonCopy.lessonLength);
+
+            if (!isNaN(startTime) && !isNaN(lessonLength)) {
+                const endTime = startTime.clone().add(lessonLength, 'minutes');
+                lessonCopy.endTime = endTime.format('YYYY-MM-DDTHH:mm');
+            }
+        }
+
         setLesson(lessonCopy);
     };
-
 
     const handleSave = (evt) => {
         lesson.teacherId = userProfile.id
@@ -51,8 +63,8 @@ export default function LessonAddForm({ userProfile }) {
     return (
         <Form className='form'>
             <FormGroup>
-                <Label for="dateTime">Date/Time:</Label>
-                <Input type="datetime-local" name="dateTime" id="dateTime" value={lesson.dateTime} onChange={handleInputChange} />
+                <Label for="startTime">Date/Time:</Label>
+                <Input type="datetime-local" name="startTime" id="startTime" value={lesson.startTime} onChange={handleInputChange} />
             </FormGroup>
             <FormGroup>
                 <Label for="lessonLength">Length (In Minutes)</Label>
