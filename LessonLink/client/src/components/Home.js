@@ -25,10 +25,10 @@ export default function Home({ userProfile }) {
 
     useEffect(() => {
         const filtered = lessons.length > 0 ? lessons.filter((lesson) => {
-            if (!lesson.dateTime) {
+            if (!lesson.startTime) {
                 return false;
             }
-            const lessonDate = new Date(lesson.dateTime);
+            const lessonDate = new Date(lesson.startTime);
             return lessonDate <= nextWeek && lessonDate >= todayCheck;
         }) : [];
         setFilteredLessons(filtered);

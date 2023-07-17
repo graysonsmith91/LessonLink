@@ -32,7 +32,8 @@ export default function LessonCalendar() {
                 title: `${lesson.student.fullName}`,
                 start: `${lesson.startTime}`,
                 end: `${lesson.endTime}`,
-                isComplete: lesson.isComplete
+                isComplete: lesson.isComplete,
+                classNames: lesson.isComplete ? "event-complete" : "event-incomplete",
             };
             eventsArray.push(eventObject);
         }

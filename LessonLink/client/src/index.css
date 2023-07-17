@@ -81,3 +81,9 @@ legend {
 .new-button {
   margin-bottom: 15px;
 }
+
+.event-complete {
+  background-color: #34a853;
+  border-color: #34a853;
+  color: #fff;
+}
