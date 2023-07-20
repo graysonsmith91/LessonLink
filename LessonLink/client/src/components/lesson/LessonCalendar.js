@@ -24,6 +24,8 @@ export default function LessonCalendar() {
         getCalendarEvents();
     }, [lessons])
 
+    const currentDate = new Date();
+
     const getCalendarEvents = () => {
         const eventsArray = [];
         for (const lesson of lessons) {
@@ -33,20 +35,24 @@ export default function LessonCalendar() {
                 start: `${lesson.startTime}`,
                 end: `${lesson.endTime}`,
                 isComplete: lesson.isComplete,
-                classNames: lesson.isComplete ? "event-complete" : "event-incomplete",
             };
+
+            if (new Date(lesson.endTime) <= currentDate) {
+                eventObject.classNames = lesson.isComplete ? "event-complete" : "event-incomplete";
+            };
+
             eventsArray.push(eventObject);
         }
         setEvents(eventsArray);
     };
 
     const handleAddLesson = () => {
-        navigate("/lessons/add", { state: { lessons: lessons } });
+        navigate("/calendar/add", { state: { lessons: lessons } });
     }
 
     const handleEventClick = (eventInfo) => {
         const lessonId = eventInfo.event.id;
-        navigate(`/lessons/details/${lessonId}`);
+        navigate(`/calendar/details/${lessonId}`);
     }
 
     return (

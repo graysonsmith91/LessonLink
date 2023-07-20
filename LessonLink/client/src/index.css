@@ -83,7 +83,13 @@ legend {
 }
 
 .event-complete {
-  background-color: #34a853;
-  border-color: #34a853;
+  background-color: rgba(52, 168, 83, 0.85);
+  border-color: rgba(52, 168, 83, 0.85);
+  color: #fff;
+}
+
+.event-incomplete {
+  background-color: rgba(220, 20, 60, 0.8);
+  border-color: rgba(220, 20, 60, 0.8);
   color: #fff;
 }

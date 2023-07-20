@@ -42,7 +42,7 @@ const Header = ({ isLoggedIn, userProfile }) => {
                                 </NavItem>
                                 <NavItem>
                                     <NavLink aria-current="page" className="nav-link"
-                                        style={{ cursor: "pointer" }} tag={RRNavLink} to={`/lessons/${userProfile?.id}`} >Lessons</NavLink>
+                                        style={{ cursor: "pointer" }} tag={RRNavLink} to={`/calendar/${userProfile?.id}`} >Calendar</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <a aria-current="page" className="nav-link"

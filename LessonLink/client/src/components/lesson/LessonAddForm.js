@@ -27,7 +27,6 @@ export default function LessonAddForm({ userProfile }) {
     const { lessons } = location.state;
     // Have access to list of existing lessons using this
     // Can check to compare and prevent overlapping events
-    console.log(lessons);
 
     useEffect(() => {
         getStudentsByTeacherId(userProfile.id).then((students) => {
@@ -105,7 +104,7 @@ export default function LessonAddForm({ userProfile }) {
             </FormGroup>
 
             <button type="button" className="btn btn-outline-primary btn-md" onClick={handleSave}>Submit</button>
-            <Link to={`/lessons/${userProfile.id}`} className="btn btn-outline-danger btn-md">
+            <Link to={`/calendar/${userProfile.id}`} className="btn btn-outline-danger btn-md">
                 Cancel
             </Link>
         </Form>
