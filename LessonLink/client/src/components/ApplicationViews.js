@@ -43,7 +43,7 @@ export default function ApplicationViews({ isLoggedIn, userProfile }) {
                         <Route path="details/:studentId" element={isLoggedIn ? <StudentDetails userProfile={userProfile} /> : <Navigate to="/login" />} />
                     </Route>
 
-                    <Route path="lessons">
+                    <Route path="calendar">
                         <Route path=":teacherId" element={isLoggedIn ? <LessonCalendar /> : <Navigate to="/login" />} />
                         <Route path="add" element={isLoggedIn ? <LessonAddForm userProfile={userProfile} /> : <Navigate to="/login" />} />
                         <Route path="details/:teacherId" element={isLoggedIn ? <LessonDetails userProfile={userProfile} /> : <Navigate to="/login" />} />

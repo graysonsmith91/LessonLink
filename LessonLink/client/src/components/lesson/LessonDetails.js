@@ -44,21 +44,21 @@ export default function LessonDetails({ userProfile }) {
 
     const handleDeleteConfirm = () => {
         deleteLesson(lesson.id)
-            .then(() => navigate(`/lessons/${userProfile.id}`))
+            .then(() => navigate(`/calendar/${userProfile.id}`))
             .catch(() => alert("Something went wrong, try again"));
     }
 
     const handleLessonComplete = () => {
         lesson.isComplete = true;
         editLesson(lesson)
-            .then(() => navigate(`/lessons/${userProfile.id}`))
+            .then(() => navigate(`/calendar/${userProfile.id}`))
             .catch(() => alert("Something went wrong, try again"));
     }
 
     const handleLessonIncomplete = () => {
         lesson.isComplete = false;
         editLesson(lesson)
-            .then(() => navigate(`/lessons/${userProfile.id}`))
+            .then(() => navigate(`/calendar/${userProfile.id}`))
             .catch(() => alert("Something went wrong, try again"));
     }
 
@@ -112,7 +112,7 @@ export default function LessonDetails({ userProfile }) {
                                 </div>
 
                                 <FormGroup>
-                                    <Button className="btn btn-sm m-1" onClick={() => { navigate(`/lessons/${userProfile.id}`) }}>Back To All Lessons</Button>
+                                    <Button className="btn btn-sm m-1" onClick={() => { navigate(`/calendar/${userProfile.id}`) }}>Back To All Lessons</Button>
                                     <Button className="btn btn-sm m-1" onClick={handleEditOpenModal}>Edit Lesson</Button>
                                     <Button className="btn btn-sm m-1" onClick={handleDeleteOpenModal}>Delete Lesson</Button>
                                 </FormGroup>

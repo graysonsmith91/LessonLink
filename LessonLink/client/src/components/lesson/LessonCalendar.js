@@ -47,12 +47,12 @@ export default function LessonCalendar() {
     };
 
     const handleAddLesson = () => {
-        navigate("/lessons/add", { state: { lessons: lessons } });
+        navigate("/calendar/add", { state: { lessons: lessons } });
     }
 
     const handleEventClick = (eventInfo) => {
         const lessonId = eventInfo.event.id;
-        navigate(`/lessons/details/${lessonId}`);
+        navigate(`/calendar/details/${lessonId}`);
     }
 
     return (
